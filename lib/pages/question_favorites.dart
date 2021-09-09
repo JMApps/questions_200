@@ -5,6 +5,20 @@ class QuestionFavorites extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return CupertinoPageScaffold(
+      resizeToAvoidBottomInset: false,
+      navigationBar: CupertinoNavigationBar(
+        middle: Text(
+          'Избранное',
+        ),
+      ),
+      child: SafeArea(
+        child: _buildFavorites(),
+      ),
+    );
+  }
+
+  Widget _buildFavorites() {
+    return SizedBox();
   }
 }

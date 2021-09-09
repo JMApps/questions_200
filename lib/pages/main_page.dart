@@ -1,10 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:questions_200/data/database_query.dart';
 import 'package:questions_200/pages/question_chapters.dart';
 import 'package:questions_200/pages/question_favorites.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
+
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  var _databaseQuery = DatabaseQuery();
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +54,7 @@ class MainPage extends StatelessWidget {
           case 0:
             returnValue = CupertinoTabView(
               builder: (context) {
-                return QuestionChapters();
+                return QuestionChapters(databaseQuery: _databaseQuery);
               },
             );
             break;
