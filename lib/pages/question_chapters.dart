@@ -13,9 +13,11 @@ class QuestionChapters extends StatefulWidget {
 
 class _QuestionChaptersState extends State<QuestionChapters> {
   var _databaseQuery = DatabaseQuery();
+  TextEditingController _searchTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    FocusScopeNode _currentFocus = FocusScope.of(context);
     return CupertinoPageScaffold(
       resizeToAvoidBottomInset: false,
       navigationBar: CupertinoNavigationBar(
@@ -27,41 +29,27 @@ class _QuestionChaptersState extends State<QuestionChapters> {
           '200 вопросов',
         ),
       ),
-      child: FutureBuilder<List>(
-        future: _databaseQuery.getAllChapters(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Center(
-              child: Text('${snapshot.error}'),
-            );
-          } else if (snapshot.hasData) {
-            return SafeArea(
-              child: Scrollbar(
-                child: Column(
-                  children: [
-                    _buildSearch(),
-                    Expanded(
-                      child: _buildChapters(snapshot),
-                    ),
-                  ],
-                ),
+      child: SafeArea(
+        child: Scrollbar(
+          child: Column(
+            children: [
+              _buildSearch(),
+              Expanded(
+                child: _buildChapters(),
               ),
-            );
-          } else {
-            return CircularProgressIndicator();
-          }
-        },
+            ],
+          ),
+        ),
       ),
     );
   }
 
   Widget _buildSearch() {
-    TextEditingController _textController = TextEditingController();
     return Container(
       padding: EdgeInsets.all(8),
       color: CupertinoColors.systemGroupedBackground,
       child: CupertinoTextField(
-        controller: _textController,
+        controller: _searchTextController,
         autocorrect: true,
         onChanged: (String text) {
           setState(() {});
@@ -86,12 +74,38 @@ class _QuestionChaptersState extends State<QuestionChapters> {
     );
   }
 
-  Widget _buildChapters(AsyncSnapshot snapshot) {
-    return ListView.separated(
-      itemCount: snapshot.data!.length,
-      separatorBuilder: (context, index) => Divider(indent: 16, endIndent: 16),
-      itemBuilder: (context, index) {
-        return _buildChapterItem(snapshot.data![index]);
+  Widget _buildChapters() {
+    return FutureBuilder<List>(
+      future: _searchTextController.text.isEmpty
+          ? _databaseQuery.getAllChapters()
+          : _databaseQuery.getSearchResult(_searchTextController.text),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return ListView.separated(
+            itemCount: snapshot.data!.length,
+            separatorBuilder: (context, index) =>
+                Divider(indent: 16, endIndent: 16),
+            itemBuilder: (context, index) {
+              return _buildChapterItem(snapshot.data![index]);
+            },
+          );
+        } else {
+          return Center(
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: Expanded(
+                child: Text(
+                  'По вашему запросу ничего не найдено',
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: CupertinoColors.systemGrey,
+                      fontFamily: 'Gilroy'),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          );
+        }
       },
     );
   }
