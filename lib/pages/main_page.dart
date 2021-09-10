@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:questions_200/data/database_query.dart';
 import 'package:questions_200/pages/question_chapters.dart';
 import 'package:questions_200/pages/question_favorites.dart';
 
@@ -12,8 +11,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  var _databaseQuery = DatabaseQuery();
-
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -25,6 +22,7 @@ class _MainPageState extends State<MainPage> {
   Widget _buildTabScaffold() {
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
+        backgroundColor: CupertinoColors.systemGroupedBackground,
         items: [
           BottomNavigationBarItem(
             icon: Icon(
@@ -54,7 +52,7 @@ class _MainPageState extends State<MainPage> {
           case 0:
             returnValue = CupertinoTabView(
               builder: (context) {
-                return QuestionChapters(databaseQuery: _databaseQuery);
+                return QuestionChapters();
               },
             );
             break;
