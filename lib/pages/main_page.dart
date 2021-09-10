@@ -13,9 +13,17 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      resizeToAvoidBottomInset: false,
-      child: _buildTabScaffold(),
+    FocusScopeNode _currentFocus = FocusScope.of(context);
+    return GestureDetector(
+      child: CupertinoPageScaffold(
+        resizeToAvoidBottomInset: false,
+        child: _buildTabScaffold(),
+      ),
+      onTap: () {
+        if (!_currentFocus.hasPrimaryFocus) {
+          _currentFocus.unfocus();
+        }
+      },
     );
   }
 
