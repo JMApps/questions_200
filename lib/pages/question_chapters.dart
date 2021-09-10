@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:questions_200/data/database_query.dart';
 import 'package:questions_200/model/question_item.dart';
 
@@ -17,7 +18,6 @@ class _QuestionChaptersState extends State<QuestionChapters> {
 
   @override
   Widget build(BuildContext context) {
-    FocusScopeNode _currentFocus = FocusScope.of(context);
     return CupertinoPageScaffold(
       resizeToAvoidBottomInset: false,
       navigationBar: CupertinoNavigationBar(
@@ -29,17 +29,15 @@ class _QuestionChaptersState extends State<QuestionChapters> {
           '200 вопросов',
         ),
       ),
-      child: SafeArea(
-        child: Scrollbar(
-          child: Column(
-            children: [
-              _buildSearch(),
-              Expanded(
-                child: _buildChapters(),
-              ),
-            ],
+      child: Column(
+        children: [
+          _buildSearch(),
+          Expanded(
+            child: Scrollbar(
+              child: _buildChapters(),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -111,37 +109,51 @@ class _QuestionChaptersState extends State<QuestionChapters> {
   }
 
   Widget _buildChapterItem(QuestionItem item) {
-    return GestureDetector(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return Slidable(
+      actionPane: SlidableDrawerActionPane(),
+      child: Row(
         children: [
-          Padding(
-            padding: EdgeInsets.only(left: 16, top: 16, right: 16),
-            child: Text(
-              'Вопрос ${item.id}',
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.teal,
-              ),
+          Flexible(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 16, top: 16, right: 16),
+                  child: Text(
+                    'Вопрос ${item.id}',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.teal,
+                    ),
+                  ),
+                ),
+                Html(
+                  data: item.questionContent,
+                  style: {
+                    '#': Style(
+                        fontSize: FontSize(20),
+                        padding: EdgeInsets.symmetric(horizontal: 4),
+                        fontFamily: 'Gilroy'),
+                    'a': Style(
+                      fontSize: FontSize(16),
+                      color: Colors.blue,
+                    )
+                  },
+                ),
+              ],
             ),
-          ),
-          Html(
-            data: item.questionContent,
-            style: {
-              '#': Style(
-                  fontSize: FontSize(20),
-                  padding: EdgeInsets.symmetric(horizontal: 4),
-                  fontFamily: 'Gilroy'),
-              'a': Style(
-                fontSize: FontSize(16),
-                color: Colors.blue,
-              )
-            },
           ),
         ],
       ),
-      onTap: () {},
+      secondaryActions: [
+        IconSlideAction(
+          caption: 'В избранное',
+          color: Colors.teal,
+          icon: CupertinoIcons.square_stack_3d_up_fill,
+          onTap: () => print('To favorite'),
+        ),
+      ],
     );
   }
 }
