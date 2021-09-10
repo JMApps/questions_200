@@ -89,18 +89,8 @@ class _QuestionChaptersState extends State<QuestionChapters> {
           );
         } else {
           return Center(
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: Expanded(
-                child: Text(
-                  'По вашему запросу ничего не найдено',
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: CupertinoColors.systemGrey,
-                      fontFamily: 'Gilroy'),
-                  textAlign: TextAlign.center,
-                ),
-              ),
+            child: CircularProgressIndicator(
+              color: Colors.teal,
             ),
           );
         }
