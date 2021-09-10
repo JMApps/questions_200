@@ -45,7 +45,12 @@ class _QuestionChaptersState extends State<QuestionChapters> {
   Widget _buildSearch() {
     return Container(
       padding: EdgeInsets.all(8),
-      color: CupertinoColors.systemGroupedBackground,
+      decoration: BoxDecoration(
+        color: CupertinoColors.systemGroupedBackground,
+        border: Border(
+          bottom: BorderSide(color: CupertinoColors.systemGrey4),
+        ),
+      ),
       child: CupertinoTextField(
         controller: _searchTextController,
         autocorrect: true,
@@ -138,10 +143,18 @@ class _QuestionChaptersState extends State<QuestionChapters> {
       ),
       secondaryActions: [
         IconSlideAction(
-          caption: 'В избранное',
-          color: Colors.teal,
-          icon: CupertinoIcons.square_stack_3d_up_fill,
-          onTap: () => print('To favorite'),
+          caption: item.favoriteState == 0 ? 'В избранное' : 'Удалить',
+          color: item.favoriteState == 0 ? Colors.teal : Colors.red,
+          icon: item.favoriteState == 0
+              ? CupertinoIcons.square_stack_3d_up_fill
+              : CupertinoIcons.square_stack_3d_up,
+          onTap: () {
+            setState(() {
+              item.favoriteState == 0
+                  ? _databaseQuery.addRemoveFavorite(1, item.id!)
+                  : _databaseQuery.addRemoveFavorite(0, item.id!);
+            });
+          },
         ),
       ],
     );

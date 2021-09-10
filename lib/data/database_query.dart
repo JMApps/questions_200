@@ -17,4 +17,9 @@ class DatabaseQuery {
     List<QuestionItem>? searchResults = res.isNotEmpty ? res.map((c) => QuestionItem.fromMap(c)).toList() : null;
     return searchResults!;
   }
+
+  addRemoveFavorite(int state, int _id) async {
+    var dbClient = await con.db;
+    await dbClient.rawQuery('UPDATE Table_of_questions SET favorite_state = $state WHERE _id == $_id');
+  }
 }
