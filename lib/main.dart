@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       theme: CupertinoThemeData(
         primaryColor: CupertinoColors.systemTeal,
         textTheme: CupertinoTextThemeData(
+          primaryColor: Colors.teal,
           textStyle: TextStyle(fontFamily: 'Gilroy')
         )
       ),
