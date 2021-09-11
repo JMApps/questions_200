@@ -22,4 +22,11 @@ class DatabaseQuery {
     var dbClient = await con.db;
     await dbClient.rawQuery('UPDATE Table_of_questions SET favorite_state = $state WHERE _id == $_id');
   }
+
+  Future<List<QuestionItem>> getFavoriteChapters() async {
+    var dbClient = await con.db;
+    var res = await dbClient.query('Table_of_questions', where: 'favorite_state == 1');
+    List<QuestionItem>? favoriteChapters = res.isNotEmpty ? res.map((c) => QuestionItem.fromMap(c)).toList() : null;
+    return favoriteChapters!;
+  }
 }
