@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:questions_200/arguments/chapter_arguments.dart';
 import 'package:questions_200/data/database_query.dart';
 import 'package:questions_200/model/question_item.dart';
 
@@ -108,7 +109,7 @@ class _QuestionChaptersState extends State<QuestionChapters> {
       actionPane: SlidableDrawerActionPane(),
       child: Row(
         children: [
-          Flexible(
+          GestureDetector(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,6 +139,12 @@ class _QuestionChaptersState extends State<QuestionChapters> {
                 ),
               ],
             ),
+            onTap: () {
+              Navigator.of(context, rootNavigator: true).pushNamed(
+                '/answer_content',
+                arguments: ChapterArguments(item.id),
+              );
+            },
           ),
         ],
       ),
@@ -149,11 +156,13 @@ class _QuestionChaptersState extends State<QuestionChapters> {
               ? CupertinoIcons.square_stack_3d_up_fill
               : CupertinoIcons.square_stack_3d_up,
           onTap: () {
-            setState(() {
-              item.favoriteState == 0
-                  ? _databaseQuery.addRemoveFavorite(1, item.id!)
-                  : _databaseQuery.addRemoveFavorite(0, item.id!);
-            });
+            setState(
+              () {
+                item.favoriteState == 0
+                    ? _databaseQuery.addRemoveFavorite(1, item.id!)
+                    : _databaseQuery.addRemoveFavorite(0, item.id!);
+              },
+            );
           },
         ),
       ],

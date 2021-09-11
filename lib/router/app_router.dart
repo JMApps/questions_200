@@ -6,9 +6,9 @@ class AppRouter {
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case '/':
-        return CupertinoPageRoute(builder: (_) => MyApp());
+        return CupertinoPageRoute(builder: (_) => MyApp(), settings: routeSettings);
       case '/answer_content':
-        return CupertinoPageRoute(builder: (_) => AnswerContentPage());
+        return CupertinoPageRoute(builder: (_) => AnswerContentPage(), settings: routeSettings);
       default:
         throw Exception('Invalid route');
     }

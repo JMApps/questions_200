@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:questions_200/arguments/chapter_arguments.dart';
 import 'package:questions_200/data/database_query.dart';
 import 'package:questions_200/model/question_item.dart';
 
@@ -62,7 +63,7 @@ class _QuestionFavoritesState extends State<QuestionFavorites> {
       actionPane: SlidableDrawerActionPane(),
       child: Row(
         children: [
-          Flexible(
+          GestureDetector(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,6 +93,12 @@ class _QuestionFavoritesState extends State<QuestionFavorites> {
                 ),
               ],
             ),
+            onTap: () {
+              Navigator.of(context, rootNavigator: true).pushNamed(
+                '/answer_content',
+                arguments: ChapterArguments(item.id),
+              );
+            },
           ),
         ],
       ),
