@@ -95,9 +95,7 @@ class _QuestionChaptersState extends State<QuestionChapters> {
           );
         } else {
           return Center(
-            child: CircularProgressIndicator(
-              color: Colors.teal,
-            ),
+            child: CupertinoActivityIndicator(),
           );
         }
       },
