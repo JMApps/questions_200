@@ -60,12 +60,6 @@ class _AnswerContentPageState extends State<AnswerContentPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             _buildQuestionContent(snapshot.data![index]),
-                            SizedBox(height: 8),
-                            Divider(
-                              indent: 16,
-                              endIndent: 16,
-                              color: Colors.grey[800],
-                            ),
                             _buildAnswerContent(snapshot.data![index]),
                           ],
                         );
@@ -82,22 +76,35 @@ class _AnswerContentPageState extends State<AnswerContentPage> {
   }
 
   Widget _buildQuestionContent(QuestionItem item) {
-    return Padding(
-      padding: EdgeInsets.only(left: 16, top: 32, right: 16, bottom: 8),
-      child: SelectableHtml(
-        data: '${item.questionContent}',
-        style: {
-          '#': Style(
-              fontSize: FontSize(20),
-              color: Colors.teal,
-              fontWeight: FontWeight.w700,
-              textAlign: TextAlign.center,
-              fontFamily: 'Gilroy'),
-          'a': Style(
-            fontSize: FontSize(18),
-            color: Colors.blue,
-          ),
-        },
+    return Container(
+      padding: EdgeInsets.all(16),
+      margin: EdgeInsets.only(left: 8, top: 32, right: 8, bottom: 8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        gradient: LinearGradient(
+          colors: [
+            Colors.grey[300]!,
+            Colors.grey[100]!,
+            Colors.grey[50]!,
+          ],
+        ),
+      ),
+      child: Center(
+        child: SelectableHtml(
+          data: '${item.questionContent}',
+          style: {
+            '#': Style(
+                fontSize: FontSize(20),
+                color: Colors.teal,
+                fontWeight: FontWeight.w700,
+                textAlign: TextAlign.center,
+                fontFamily: 'Gilroy'),
+            'a': Style(
+              fontSize: FontSize(18),
+              color: Colors.blue,
+            ),
+          },
+        ),
       ),
     );
   }
