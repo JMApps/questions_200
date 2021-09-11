@@ -4,6 +4,8 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:questions_200/arguments/chapter_arguments.dart';
 import 'package:questions_200/data/database_query.dart';
 import 'package:questions_200/model/question_item.dart';
+import 'package:html/parser.dart';
+import 'package:share_plus/share_plus.dart';
 
 class AnswerContentPage extends StatefulWidget {
   const AnswerContentPage({Key? key}) : super(key: key);
@@ -19,42 +21,63 @@ class _AnswerContentPageState extends State<AnswerContentPage> {
   Widget build(BuildContext context) {
     final arguments =
         ModalRoute.of(context)?.settings.arguments as ChapterArguments?;
-    return CupertinoPageScaffold(
-      resizeToAvoidBottomInset: false,
-      navigationBar: CupertinoNavigationBar(
-        backgroundColor: CupertinoColors.systemGroupedBackground,
-        middle: Text(
-          'Вопрос ${arguments!.id}',
-        ),
-      ),
-      child: Scrollbar(
-        child: SingleChildScrollView(
-          child: FutureBuilder<List>(
-              future: _databaseQuery.getChapterContent(arguments.id!),
-              builder: (context, snapshot) {
-                return snapshot.hasData
-                    ? ListView.builder(
-                        shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              _buildQuestionContent(snapshot.data![index]),
-                              _buildAnswerContent(snapshot.data![index]),
-                            ],
-                          );
-                        },
-                      )
-                    : Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.teal,
-                        ),
-                      );
-              }),
-        ),
-      ),
+    return FutureBuilder<List>(
+      future: _databaseQuery.getChapterContent(arguments!.id!),
+      builder: (context, snapshot) {
+        return CupertinoPageScaffold(
+          resizeToAvoidBottomInset: false,
+          navigationBar: CupertinoNavigationBar(
+            backgroundColor: CupertinoColors.systemGroupedBackground,
+            middle: Text(
+              'Вопрос ${arguments.id}',
+            ),
+            trailing: CupertinoButton(
+              onPressed: () {
+                var item = snapshot.data![0];
+                Share.share(
+                  _parseHtmlString(
+                    'Вопрос ${arguments.id}\n\n${item.questionContent}\n\nОтвет\n\n${item.answerContent}',
+                  ),
+                  sharePositionOrigin: Rect.fromLTWH(0, 0, 10, 10 / 2),
+                );
+              },
+              padding: EdgeInsets.zero,
+              child: Icon(
+                CupertinoIcons.share,
+                color: Colors.teal,
+              ),
+            ),
+          ),
+          child: Scrollbar(
+            child: SingleChildScrollView(
+              child: snapshot.hasData
+                  ? ListView.builder(
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            _buildQuestionContent(snapshot.data![index]),
+                            SizedBox(height: 8),
+                            Divider(
+                              indent: 16,
+                              endIndent: 16,
+                              color: Colors.grey[800],
+                            ),
+                            _buildAnswerContent(snapshot.data![index]),
+                          ],
+                        );
+                      },
+                    )
+                  : Center(
+                      child: CupertinoActivityIndicator(),
+                    ),
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -117,5 +140,12 @@ class _AnswerContentPageState extends State<AnswerContentPage> {
         },
       ),
     );
+  }
+
+  String _parseHtmlString(String htmlString) {
+    final documentText = parse(htmlString);
+    final String parsedString =
+        parse(documentText.body!.text).documentElement!.text;
+    return parsedString;
   }
 }
