@@ -17,7 +17,7 @@ class QuestionItem {
     this.id = obj['_id'];
     this.questionNumber = obj['question_number'];
     this.questionContent = obj['question_content'];
-    this.answerContent = obj['answer_number'];
+    this.answerContent = obj['answer_content'];
     this.favoriteState = obj['favorite_state'];
   }
 }

@@ -29,4 +29,11 @@ class DatabaseQuery {
     List<QuestionItem>? favoriteChapters = res.isNotEmpty ? res.map((c) => QuestionItem.fromMap(c)).toList() : null;
     return favoriteChapters!;
   }
+
+  Future<List<QuestionItem>> getChapterContent(int id) async {
+    var dbClient = await con.db;
+    var res = await dbClient.query('Table_of_questions', where: '_id == $id');
+    List<QuestionItem>? chapterContent = res.isNotEmpty ? res.map((c) => QuestionItem.fromMap(c)).toList() : null;
+    return chapterContent!;
+  }
 }
