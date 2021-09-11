@@ -120,6 +120,20 @@ class _AnswerContentPageState extends State<AnswerContentPage> {
                       fontFamily: 'Gilroy')
                 },
               ),
+              cancelButton: CupertinoActionSheetAction(
+                child: Text(
+                  'Закрыть',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.red,
+                    fontFamily: 'Gilroy',
+                  ),
+                ),
+                isDefaultAction: true,
+                onPressed: () {
+                  Navigator.pop(context, 'Закрыть');
+                },
+              ),
             ),
           );
         },
