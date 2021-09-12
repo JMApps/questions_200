@@ -31,6 +31,16 @@ class _AnswerContentPageState extends State<AnswerContentPage> {
             middle: Text(
               'Вопрос ${arguments.id}',
             ),
+            // leading: CupertinoButton(
+            //     onPressed: () {
+            //       Navigator.of(context, rootNavigator: true)
+            //         .pushNamed('/settings');
+            //     },
+            //     padding: EdgeInsets.zero,
+            //     child: Icon(
+            //       CupertinoIcons.settings,
+            //       color: Colors.teal,
+            //     )),
             trailing: CupertinoButton(
               onPressed: () {
                 var item = snapshot.data![0];
