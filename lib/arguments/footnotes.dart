@@ -1,0 +1,5 @@
+class Footnotes {
+  var footnotes = [
+
+  ];
+}
