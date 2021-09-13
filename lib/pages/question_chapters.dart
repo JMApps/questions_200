@@ -95,7 +95,7 @@ class _QuestionChaptersState extends State<QuestionChapters> {
           );
         } else {
           return Center(
-            child: CupertinoActivityIndicator(),
+            child: Text("${snapshot.error}"),
           );
         }
       },

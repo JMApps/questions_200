@@ -122,19 +122,19 @@ class _AnswerContentPageState extends State<AnswerContentPage> {
   Widget _buildAnswerContent(QuestionItem item) {
     return Padding(
       padding: EdgeInsets.all(16),
-      child: SelectableHtml(
+      child: Html(
         onLinkTap: (String? url, RenderContext rendContext,
             Map<String, String> attributes, element) {
           showCupertinoModalPopup(
             context: context,
             builder: (BuildContext context) => CupertinoActionSheet(
-              message: Html(
+              message: SelectableHtml(
                 data: url,
                 style: {
                   '#': Style(
                       fontSize: FontSize(18),
                       color: Colors.grey[800],
-                      fontFamily: 'Gilroy')
+                      fontFamily: 'Gilroy'),
                 },
               ),
               cancelButton: CupertinoActionSheetAction(
@@ -160,8 +160,8 @@ class _AnswerContentPageState extends State<AnswerContentPage> {
               fontSize: FontSize(20),
               color: Colors.grey[800],
               fontFamily: 'Gilroy'),
-          'a': Style(
-            fontSize: FontSize(18),
+          'sup': Style(
+            fontSize: FontSize(14),
             color: Colors.blue,
           ),
           'small': Style(
