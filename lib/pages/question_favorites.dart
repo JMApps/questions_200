@@ -79,16 +79,52 @@ class _QuestionFavoritesState extends State<QuestionFavorites> {
                   ),
                 ),
                 Html(
+                  onLinkTap: (String? url, RenderContext rendContext,
+                      Map<String, String> attributes, element) {
+                    showCupertinoModalPopup(
+                      context: context,
+                      builder: (BuildContext context) => CupertinoActionSheet(
+                        message: SelectableHtml(
+                          data: url,
+                          style: {
+                            '#': Style(
+                                fontSize: FontSize(18),
+                                color: Colors.grey[800],
+                                fontFamily: 'Gilroy'),
+                            'small': Style(
+                                fontSize: FontSize(14),
+                                color: Colors.grey[800],
+                                fontFamily: 'Gilroy'),
+                          },
+                        ),
+                        cancelButton: CupertinoActionSheetAction(
+                          child: Text(
+                            'Закрыть',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.red,
+                              fontFamily: 'Gilroy',
+                            ),
+                          ),
+                          isDefaultAction: true,
+                          onPressed: () {
+                            Navigator.pop(context, 'Закрыть');
+                          },
+                        ),
+                      ),
+                    );
+                  },
                   data: item.questionContent,
                   style: {
                     '#': Style(
                         fontSize: FontSize(20),
                         padding: EdgeInsets.symmetric(horizontal: 4),
                         fontFamily: 'Gilroy'),
-                    'a': Style(
-                      fontSize: FontSize(16),
+                    'sup': Style(
+                      fontSize: FontSize(14),
                       color: Colors.blue,
-                    )
+                      fontFamily: 'Gilroy',
+                    ),
                   },
                 ),
               ],

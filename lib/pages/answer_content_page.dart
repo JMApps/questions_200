@@ -100,7 +100,38 @@ class _AnswerContentPageState extends State<AnswerContentPage> {
         ),
       ),
       child: Center(
-        child: SelectableHtml(
+        child: Html(
+          onLinkTap: (String? url, RenderContext rendContext,
+              Map<String, String> attributes, element) {
+            showCupertinoModalPopup(
+              context: context,
+              builder: (BuildContext context) => CupertinoActionSheet(
+                message: Html(
+                  data: url,
+                  style: {
+                    '#': Style(
+                        fontSize: FontSize(18),
+                        color: Colors.grey[800],
+                        fontFamily: 'Gilroy'),
+                  },
+                ),
+                cancelButton: CupertinoActionSheetAction(
+                  child: Text(
+                    'Закрыть',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.red,
+                      fontFamily: 'Gilroy',
+                    ),
+                  ),
+                  isDefaultAction: true,
+                  onPressed: () {
+                    Navigator.pop(context, 'Закрыть');
+                  },
+                ),
+              ),
+            );
+          },
           data: '${item.questionContent}',
           style: {
             '#': Style(
@@ -109,9 +140,10 @@ class _AnswerContentPageState extends State<AnswerContentPage> {
                 fontWeight: FontWeight.w700,
                 textAlign: TextAlign.center,
                 fontFamily: 'Gilroy'),
-            'a': Style(
-              fontSize: FontSize(18),
+            'sup': Style(
+              fontSize: FontSize(14),
               color: Colors.blue,
+              fontFamily: 'Gilroy',
             ),
           },
         ),
@@ -121,7 +153,7 @@ class _AnswerContentPageState extends State<AnswerContentPage> {
 
   Widget _buildAnswerContent(QuestionItem item) {
     return Padding(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(8),
       child: Html(
         onLinkTap: (String? url, RenderContext rendContext,
             Map<String, String> attributes, element) {
@@ -163,6 +195,7 @@ class _AnswerContentPageState extends State<AnswerContentPage> {
           'sup': Style(
             fontSize: FontSize(14),
             color: Colors.blue,
+            fontFamily: 'Gilroy',
           ),
           'small': Style(
             fontSize: FontSize(16),
