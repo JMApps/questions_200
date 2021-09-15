@@ -3,12 +3,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:questions_200/pages/main_page.dart';
-import 'package:questions_200/pages/main_page_android.dart';
 import 'package:questions_200/router/app_router.dart';
-import 'package:questions_200/router/app_router_android.dart';
 
 void main() {
-  runApp(Platform.isAndroid ? MyAppAndroid() : MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -27,22 +25,6 @@ class MyApp extends StatelessWidget {
               primaryColor: Colors.teal,
               textStyle: TextStyle(fontFamily: 'Gilroy'))),
       home: MainPage(),
-    );
-  }
-}
-
-class MyAppAndroid extends StatelessWidget {
-  final _appRouterAndroid = AppRouterAndroid();
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: _appRouterAndroid.onGenerateRoute,
-      initialRoute: '/',
-      title: '200 вопросов',
-      theme: ThemeData(fontFamily: 'Gilroy'),
-      home: MainPageAndroid(),
     );
   }
 }
