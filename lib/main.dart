@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:questions_200/pages/main_page.dart';
@@ -20,6 +18,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       title: '200 вопросов',
       theme: CupertinoThemeData(
+          brightness: Brightness.light,
           primaryColor: CupertinoColors.systemTeal,
           textTheme: CupertinoTextThemeData(
               primaryColor: Colors.teal,

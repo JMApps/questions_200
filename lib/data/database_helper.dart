@@ -39,14 +39,17 @@ class DatabaseHelper {
         Exception('Invalid database');
       }
       // Копировать из актива
-      ByteData data = await rootBundle.load(join('assets/databases', 'questions.db'));
-      List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+      ByteData data =
+          await rootBundle.load(join('assets/databases', 'questions.db'));
+      List<int> bytes =
+          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
       await File(path).writeAsBytes(bytes, flush: true);
     } else {
       print('Открытие существующей базы данных');
     }
     // Открываем базу данных
-    var bomDataTable = await openDatabase(path, version: 1, onUpgrade: _onUpgrade);
+    var bomDataTable =
+        await openDatabase(path, version: 1, onUpgrade: _onUpgrade);
     return bomDataTable;
   }
 

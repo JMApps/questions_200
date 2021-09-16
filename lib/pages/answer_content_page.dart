@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:html/parser.dart';
 import 'package:questions_200/arguments/chapter_arguments.dart';
 import 'package:questions_200/data/database_query.dart';
 import 'package:questions_200/model/question_item.dart';
-import 'package:html/parser.dart';
 import 'package:share_plus/share_plus.dart';
 
 class AnswerContentPage extends StatefulWidget {
