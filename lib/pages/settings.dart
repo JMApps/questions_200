@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -9,7 +10,23 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  double _currentSliderValue = 18;
+  late SharedPreferences _preferences;
+  late double _currentSliderValue;
+
+  @override
+  void initState() {
+    initPreferences();
+    super.initState();
+  }
+
+  initPreferences() async {
+    SharedPreferences.getInstance().then((SharedPreferences sp) {
+      setState(() {
+        _preferences = sp;
+        _currentSliderValue = sp.getDouble('key_slider_text_size_value') ?? 18;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +63,7 @@ class _SettingsState extends State<Settings> {
                 setState(
                   () {
                     _currentSliderValue = value;
+                    _preferences.setDouble('key_slider_text_size_value', _currentSliderValue);
                   },
                 );
               },

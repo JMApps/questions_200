@@ -6,6 +6,7 @@ import 'package:questions_200/arguments/chapter_arguments.dart';
 import 'package:questions_200/data/database_query.dart';
 import 'package:questions_200/model/question_item.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AnswerContentPage extends StatefulWidget {
   const AnswerContentPage({Key? key}) : super(key: key);
@@ -16,6 +17,21 @@ class AnswerContentPage extends StatefulWidget {
 
 class _AnswerContentPageState extends State<AnswerContentPage> {
   var _databaseQuery = DatabaseQuery();
+  late SharedPreferences _preferences;
+
+  @override
+  void initState() {
+    initPreferences();
+    super.initState();
+  }
+
+  initPreferences() async {
+    SharedPreferences.getInstance().then((SharedPreferences sp) {
+      setState(() {
+        _preferences = sp;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +141,7 @@ class _AnswerContentPageState extends State<AnswerContentPage> {
           data: '${item.questionContent}',
           style: {
             '#': Style(
-                fontSize: FontSize(20),
+                fontSize: FontSize(_preferences.getDouble('key_slider_text_size_value')),
                 color: Colors.teal,
                 fontWeight: FontWeight.w700,
                 textAlign: TextAlign.center,
@@ -179,7 +195,7 @@ class _AnswerContentPageState extends State<AnswerContentPage> {
         data: '${item.answerContent}',
         style: {
           '#': Style(
-              fontSize: FontSize(20),
+              fontSize: FontSize(_preferences.getDouble('key_slider_text_size_value')),
               color: Colors.grey[800],
               fontFamily: 'Gilroy'),
           'sup': Style(

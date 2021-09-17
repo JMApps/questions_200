@@ -29,6 +29,15 @@ class _QuestionChaptersState extends State<QuestionChapters> {
         middle: Text(
           '200 вопросов',
         ),
+        trailing: CupertinoButton(
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pushNamed('/settings');
+          },
+          child: Icon(
+            CupertinoIcons.settings,
+            color: Colors.teal,
+          ),
+        ),
       ),
       child: Column(
         children: [
