@@ -18,6 +18,7 @@ class AnswerContentPage extends StatefulWidget {
 class _AnswerContentPageState extends State<AnswerContentPage> {
   var _databaseQuery = DatabaseQuery();
   late SharedPreferences _preferences;
+  late double _currentSliderValue;
 
   @override
   void initState() {
@@ -29,6 +30,7 @@ class _AnswerContentPageState extends State<AnswerContentPage> {
     SharedPreferences.getInstance().then((SharedPreferences sp) {
       setState(() {
         _preferences = sp;
+        _currentSliderValue = _preferences.getDouble('key_slider_text_size_value') ?? 18;
       });
     });
   }
@@ -141,7 +143,7 @@ class _AnswerContentPageState extends State<AnswerContentPage> {
           data: '${item.questionContent}',
           style: {
             '#': Style(
-                fontSize: FontSize(_preferences.getDouble('key_slider_text_size_value')),
+                fontSize: FontSize(_currentSliderValue),
                 color: Colors.teal,
                 fontWeight: FontWeight.w700,
                 textAlign: TextAlign.center,
@@ -195,7 +197,7 @@ class _AnswerContentPageState extends State<AnswerContentPage> {
         data: '${item.answerContent}',
         style: {
           '#': Style(
-              fontSize: FontSize(_preferences.getDouble('key_slider_text_size_value')),
+              fontSize: FontSize(_currentSliderValue),
               color: Colors.grey[800],
               fontFamily: 'Gilroy'),
           'sup': Style(
@@ -204,7 +206,7 @@ class _AnswerContentPageState extends State<AnswerContentPage> {
             fontFamily: 'Gilroy',
           ),
           'small': Style(
-            fontSize: FontSize(16),
+            fontSize: FontSize(14),
             color: Colors.grey[600],
           )
         },

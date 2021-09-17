@@ -23,7 +23,7 @@ class _SettingsState extends State<SettingsA> {
     SharedPreferences.getInstance().then((SharedPreferences sp) {
       setState(() {
         _preferences = sp;
-        _currentSliderValue = sp.getDouble('key_slider_text_size_value_a') ?? 18;
+        _currentSliderValue = sp.getDouble('key_slider_text_size_value') ?? 18;
       });
     });
   }
@@ -63,7 +63,7 @@ class _SettingsState extends State<SettingsA> {
                 setState(
                   () {
                     _currentSliderValue = value;
-                    _preferences.setDouble('key_slider_text_size_value_a', _currentSliderValue);
+                    _preferences.setDouble('key_slider_text_size_value', _currentSliderValue);
                   },
                 );
               },

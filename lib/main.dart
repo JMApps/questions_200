@@ -42,7 +42,9 @@ class MyAppA extends StatelessWidget {
       onGenerateRoute: _appRouterA.onGenerateRoute,
       initialRoute: '/',
       title: '200 вопросов',
-      theme: ThemeData(fontFamily: 'Gilroy'),
+      theme: ThemeData(
+          primaryColor: Colors.teal,
+          fontFamily: 'Gilroy'),
       home: MainPageA(),
     );
   }
