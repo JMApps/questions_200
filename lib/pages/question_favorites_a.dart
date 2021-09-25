@@ -25,7 +25,7 @@ class _QuestionFavoritesAState extends State<QuestionFavoritesA> {
         title: Text('Избранное'),
         backgroundColor: Colors.teal,
         actions: [
-          SupportProjectPage(),
+          //SupportProjectPage(),
           IconButton(
             onPressed: () {
               Navigator.of(context, rootNavigator: true)

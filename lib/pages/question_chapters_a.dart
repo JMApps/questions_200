@@ -26,7 +26,7 @@ class _QuestionChaptersAState extends State<QuestionChaptersA> {
         title: Text('200 вопросов'),
         backgroundColor: Colors.teal,
         actions: [
-          SupportProjectPage(),
+          //SupportProjectPage(),
           IconButton(
             onPressed: () {
               Navigator.of(context, rootNavigator: true)
