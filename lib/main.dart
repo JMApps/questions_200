@@ -1,51 +1,81 @@
 import 'dart:io';
+import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:questions_200/pages/main_page.dart';
-import 'package:questions_200/pages/main_page_a.dart';
-import 'package:questions_200/router/app_router.dart';
-import 'package:questions_200/router/app_router_a.dart';
+import 'package:flutter/services.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:questions_200/application/routes/app_routes.dart';
+import 'package:questions_200/application/state/content_settings_state.dart';
+import 'package:questions_200/application/state/main_app_state.dart';
+import 'package:questions_200/application/strings/app_constraints.dart';
+import 'package:questions_200/application/strings/app_strings.dart';
+import 'package:questions_200/application/themes/app_theme.dart';
+import 'package:questions_200/presentation/pages/main_page.dart';
+import 'package:questions_200/presentation/pages/tablet_page.dart';
+import 'package:questions_200/presentation/widgets/default_scroll_behavior.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
-void main() {
-  runApp(Platform.isAndroid ? MyAppA() : MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  final _appRouter = AppRouter();
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoApp(
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: _appRouter.onGenerateRoute,
-      initialRoute: '/',
-      title: '200 вопросов',
-      theme: CupertinoThemeData(
-          brightness: Brightness.light,
-          primaryColor: CupertinoColors.systemTeal,
-          textTheme: CupertinoTextThemeData(
-              primaryColor: Colors.teal,
-              textStyle: TextStyle(fontFamily: 'Gilroy'))),
-      home: MainPage(),
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (Platform.isAndroid) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarColor: Colors.transparent,
+      ),
     );
   }
+  await Hive.initFlutter();
+  await Hive.openBox(AppConstraints.keyAppSettingsBox);
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => MainAppState(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ContentSettingsState(),
+        ),
+      ],
+      child: const RootPage(),
+    ),
+  );
 }
 
-class MyAppA extends StatelessWidget {
-  final _appRouterA = AppRouterA();
+class RootPage extends StatelessWidget {
+  const RootPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      onGenerateRoute: _appRouterA.onGenerateRoute,
-      initialRoute: '/',
-      title: '200 вопросов',
-      theme: ThemeData(
-          primaryColor: Colors.teal,
-          fontFamily: 'Gilroy'),
-      home: MainPageA(),
+      onGenerateRoute: AppRoutes.onGenerateRoute,
+      title: AppStrings.appName,
+      theme: AppTheme.lightTheme,
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        dragDevices: {
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.touch,
+          PointerDeviceKind.stylus,
+          PointerDeviceKind.trackpad,
+          PointerDeviceKind.unknown,
+        },
+      ),
+      builder: (context, child) {
+        return ScrollConfiguration(
+          behavior: DefaultScrollBehavior(),
+          child: child!,
+        );
+      },
+      themeMode: context.watch<ContentSettingsState>().getDarkTheme
+          ? ThemeMode.dark
+          : ThemeMode.light,
+      darkTheme: AppTheme.darkTheme,
+      home: ScreenTypeLayout.builder(
+        mobile: (BuildContext context) => const MainPage(),
+        tablet: (BuildContext context) => const TabletPage(),
+      ),
     );
   }
 }
