@@ -25,33 +25,29 @@ class DatabaseHelper {
     Directory? documentDirectory = Platform.isAndroid
         ? await getExternalStorageDirectory()
         : await getApplicationSupportDirectory();
-    String path = join(documentDirectory!.path, 'questions.db');
 
-    // Проверяем, существует ли база данных
+    String path = join(documentDirectory!.path, 'questions_1.db');
     var exists = await databaseExists(path);
 
+    String toDeleteDB = '${documentDirectory.path}/questions.db';
+
+    var delDB = await databaseExists(toDeleteDB);
+
+    if (delDB) {
+      await deleteDatabase(toDeleteDB);
+    }
+
     if (!exists) {
-      // Должно произойти только первый раз, когда вы запускаете свое приложение
-      print('Создание новой копии из актива');
       try {
         await Directory(dirname(path)).create(recursive: true);
       } catch (_) {
         Exception('Invalid database');
       }
-      // Копировать из актива
-      ByteData data =
-          await rootBundle.load(join('assets/databases', 'questions.db'));
-      List<int> bytes =
-          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-      await File(path).writeAsBytes(bytes, flush: true);
-    } else {
-      print('Открытие существующей базы данных');
-    }
-    // Открываем базу данных
-    var bomDataTable =
-        await openDatabase(path, version: 1, onUpgrade: _onUpgrade);
-    return bomDataTable;
-  }
 
-  _onUpgrade(Database db, int oldVersion, int newVersion) async {}
+      ByteData data = await rootBundle.load(join('assets/databases', 'questions_1.db'));
+      List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+      await File(path).writeAsBytes(bytes, flush: true);
+    }
+    return await openDatabase(path);
+  }
 }

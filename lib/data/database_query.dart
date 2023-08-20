@@ -1,39 +1,41 @@
 import 'package:questions_200/data/database_helper.dart';
-import 'package:questions_200/model/question_item.dart';
+import 'package:questions_200/data/model/footnote_model.dart';
+import 'package:questions_200/data/model/question_model.dart';
+import 'package:sqflite/sqflite.dart';
 
 class DatabaseQuery {
-  DatabaseHelper con = DatabaseHelper();
+  final DatabaseHelper _databaseHelper = DatabaseHelper();
 
-  Future<List<QuestionItem>> getAllChapters() async {
-    var dbClient = await con.db;
+  Future<List<QuestionModel>> getAllQuestions() async {
+    final Database dbClient = await _databaseHelper.db;
     var res = await dbClient.query('Table_of_questions');
-    List<QuestionItem>? allChapters = res.isNotEmpty ? res.map((c) => QuestionItem.fromMap(c)).toList() : null;
+    List<QuestionModel>? allChapters = res.isNotEmpty ? res.map((c) => QuestionModel.fromMap(c)).toList() : null;
     return allChapters!;
   }
 
-  Future<List<QuestionItem>> getSearchResult(String text) async {
-    var dbClient = await con.db;
-    var res = await dbClient.rawQuery("SELECT * FROM Table_of_questions WHERE question_number LIKE '%$text%' OR question_content LIKE '%$text%'");
-    List<QuestionItem>? searchResults = res.isNotEmpty ? res.map((c) => QuestionItem.fromMap(c)).toList() : null;
-    return searchResults!;
-  }
-
-  addRemoveFavorite(int state, int _id) async {
-    var dbClient = await con.db;
-    await dbClient.rawQuery('UPDATE Table_of_questions SET favorite_state = $state WHERE _id == $_id');
-  }
-
-  Future<List<QuestionItem>> getFavoriteChapters() async {
-    var dbClient = await con.db;
+  Future<List<QuestionModel>> getFavoriteChapters() async {
+    final Database dbClient = await _databaseHelper.db;
     var res = await dbClient.query('Table_of_questions', where: 'favorite_state == 1');
-    List<QuestionItem>? favoriteChapters = res.isNotEmpty ? res.map((c) => QuestionItem.fromMap(c)).toList() : null;
+    List<QuestionModel>? favoriteChapters = res.isNotEmpty ? res.map((c) => QuestionModel.fromMap(c)).toList() : null;
     return favoriteChapters!;
   }
 
-  Future<List<QuestionItem>> getChapterContent(int id) async {
-    var dbClient = await con.db;
-    var res = await dbClient.query('Table_of_questions', where: '_id == $id');
-    List<QuestionItem>? chapterContent = res.isNotEmpty ? res.map((c) => QuestionItem.fromMap(c)).toList() : null;
+  Future<List<QuestionModel>> getAnswerContent(int questionId) async {
+    final Database dbClient = await _databaseHelper.db;
+    var res = await dbClient.query('Table_of_questions', where: 'id == $questionId');
+    List<QuestionModel>? chapterContent = res.isNotEmpty ? res.map((c) => QuestionModel.fromMap(c)).toList() : null;
     return chapterContent!;
+  }
+
+  Future<List<FootnoteModel>> getFootnote(int footnoteId) async {
+    final Database dbClient = await _databaseHelper.db;
+    var res = await dbClient.query('Table_of_footnotes', where: 'id == $footnoteId');
+    List<FootnoteModel>? footnote = res.isNotEmpty ? res.map((c) => FootnoteModel.fromMap(c)).toList() : null;
+    return footnote!;
+  }
+
+  Future<void> addRemoveFavorite(int state, int id) async {
+    final Database dbClient = await _databaseHelper.db;
+    await dbClient.rawQuery('UPDATE Table_of_questions SET favorite_state = $state WHERE id == $id');
   }
 }
