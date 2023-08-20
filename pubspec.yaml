@@ -6,25 +6,35 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: '>=3.0.3 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
-  path_provider: ^2.0.3
-  sqflite: ^2.0.0+4
-  flutter_html: ^2.1.2
-  share_plus: ^2.1.4
+  cupertino_icons: ^1.0.5
+  path_provider: ^2.1.0
+  sqflite: ^2.3.0
+  path: ^1.8.3
+  flutter_html: ^3.0.0-beta.2
+  share_plus: ^7.1.0
   clipboard: ^0.1.3
-  page_view_dot_indicator: ^1.0.0
-  shared_preferences: ^2.0.7
-  flutter_slidable: ^0.6.0
+  page_view_dot_indicator: ^2.3.0
+  shared_preferences: ^2.2.0
+  flutter_slidable: ^3.0.0
+  provider: ^6.0.5
+  scrollable_positioned_list: ^0.3.8
+  flutter_material_color_picker: ^1.2.0
+  hive_flutter: ^2.0.0-dev
+  wakelock_plus: ^1.1.1
+  html: ^0.15.4
+  responsive_builder: ^0.7.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  flutter_lints: ^2.0.2
 
 flutter:
 
@@ -32,9 +42,15 @@ flutter:
 
   assets:
     - assets/databases/
-    - assets/pictures/
+    - assets/fonts/
 
   fonts:
     - family: Gilroy
       fonts:
         - asset: assets/fonts/gilroy_medium.ttf
+    - family: Ubuntu
+      fonts:
+        - asset: assets/fonts/ubuntu_medium.ttf
+    - family: Nexa
+      fonts:
+        - asset: assets/fonts/nexa_reqular.ttf
