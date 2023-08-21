@@ -30,7 +30,7 @@ class _QuestionChaptersState extends State<QuestionChapters> {
     final Random random = Random();
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppStrings.heads),
+        title: const Text(AppStrings.appName),
         actions: [
           IconButton(
             onPressed: () {
@@ -86,7 +86,7 @@ class _QuestionChaptersState extends State<QuestionChapters> {
                   ),
                 ),
                 Visibility(
-                  visible: mainAppState.getLastQuestion > -1 ? true : false,
+                  visible: mainAppState.getLastQuestion > 0 ? true : false,
                   child: Card(
                     margin: const EdgeInsets.fromLTRB(8, 0, 8, 16),
                     shape: RoundedRectangleBorder(
@@ -96,26 +96,45 @@ class _QuestionChaptersState extends State<QuestionChapters> {
                         color: appColors.titleColor,
                       ),
                     ),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          '/answer_content',
-                          arguments: QuestionArguments(
-                            questionId: mainAppState.getLastQuestion,
+                    child: ScreenTypeLayout.builder(
+                      mobile: (BuildContext context) => InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            '/answer_content',
+                            arguments: QuestionArguments(
+                              questionId: mainAppState.getLastQuestion,
+                            ),
+                          );
+                        },
+                        borderRadius: AppStyles.mainBorderRadius,
+                        child: Padding(
+                          padding: AppStyles.mainPaddingMini,
+                          child: Text(
+                            '${AppStrings.lastHead} ${mainAppState.getLastQuestion} ${AppStrings.ofQuestion}',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                        );
-                      },
-                      borderRadius: AppStyles.mainBorderRadius,
-                      child: Padding(
-                        padding: AppStyles.mainPaddingMini,
-                        child: Text(
-                          '${AppStrings.lastHead} ${mainAppState.getLastQuestion} ${AppStrings.ofQuestion}',
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      tablet: (BuildContext context) => InkWell(
+                        onTap: () {
+                          mainAppState.changeQuestionId = mainAppState.getLastQuestion;
+                        },
+                        borderRadius: AppStyles.mainBorderRadius,
+                        child: Padding(
+                          padding: AppStyles.mainPaddingMini,
+                          child: Text(
+                            '${AppStrings.lastHead} ${mainAppState.getLastQuestion} ${AppStrings.ofQuestion}',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),

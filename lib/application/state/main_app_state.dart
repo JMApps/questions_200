@@ -37,7 +37,7 @@ class MainAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  int _lastQuestion = -1;
+  int _lastQuestion = 0;
 
   int get getLastQuestion => _lastQuestion;
 
@@ -53,6 +53,6 @@ class MainAppState extends ChangeNotifier {
   }
 
   MainAppState() {
-    _lastQuestion = _contentSettingsBox.get(AppConstraints.keyLastHead, defaultValue: -1);
+    _lastQuestion = _contentSettingsBox.get(AppConstraints.keyLastHead, defaultValue: 0);
   }
 }
