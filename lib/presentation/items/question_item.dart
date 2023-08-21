@@ -22,17 +22,18 @@ class QuestionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ColorScheme appColors = Theme.of(context).colorScheme;
+    final MainAppState mainAppState = Provider.of<MainAppState>(context);
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
       shape: AppStyles.mainShape,
       child: ListTile(
         onTap: () {
+          mainAppState.saveLastLesson = model.id;
           Navigator.pushNamed(
             context,
             '/answer_content',
             arguments: QuestionArguments(
               questionId: model.id,
-              questionContent: model.questionContent,
             ),
           );
         },
@@ -75,7 +76,7 @@ class QuestionItem extends StatelessWidget {
         ),
         leading: IconButton(
           onPressed: () {
-            context.read<MainAppState>().addRemoveBookmark(model.favoriteState == 0 ? 1 : 0, model.id);
+            mainAppState.addRemoveBookmark(model.favoriteState == 0 ? 1 : 0, model.id);
           },
           icon: Icon(
             model.favoriteState == 1

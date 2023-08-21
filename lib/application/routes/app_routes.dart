@@ -11,7 +11,6 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (_) => AnswerContentPage(
             questionId: questionArguments.questionId,
-            questionContent: questionArguments.questionContent,
           ),
         );
       case '/app_settings':

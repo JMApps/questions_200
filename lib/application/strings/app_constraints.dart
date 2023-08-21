@@ -9,4 +9,6 @@ class AppConstraints {
   static const String keyDarkTextColor = 'key_dark_text_color';
   static const String keyDarkTheme = 'key_dark_theme';
   static const String keyWakeLock = 'key_wake_lock';
+  static const String keyLastHead = 'key_lesson_last_head';
+  static const String keyBookmarkItem = 'key_lesson_book_mark_item_';
 }

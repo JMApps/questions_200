@@ -18,11 +18,9 @@ class AnswerContentPage extends StatelessWidget {
   const AnswerContentPage({
     super.key,
     required this.questionId,
-    required this.questionContent,
   });
 
   final int questionId;
-  final String questionContent;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +55,7 @@ class AnswerContentPage extends StatelessWidget {
                               onPressed: () {
                                 Share.share(
                                   _parseHtmlText(
-                                    '${AppStrings.question} $questionId\n\n$questionContent\n\n${AppStrings.answer}\n\n${model.answerContent}\n\n${model.footnoteForShare ?? ''}',
+                                    '${model.questionNumber}\n\n${model.questionContent}\n\n${AppStrings.answer}\n\n${model.answerContent}\n\n${model.footnoteForShare ?? ''}',
                                   ),
                                   sharePositionOrigin: const Rect.fromLTWH(0, 0, 10, 10 / 2),
                                 );
@@ -71,7 +69,7 @@ class AnswerContentPage extends StatelessWidget {
                             margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
                             shape: AppStyles.mainShape,
                             child: Html(
-                              data: questionContent,
+                              data: model.questionContent,
                               style: {
                                 '#': Style(
                                   padding: HtmlPaddings.zero,

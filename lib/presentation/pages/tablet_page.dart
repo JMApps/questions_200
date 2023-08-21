@@ -62,7 +62,6 @@ class _TabletPageState extends State<TabletPage> {
             flex: 2,
             child: AnswerContentPage(
               questionId: mainAppState.getQuestionId,
-              questionContent: mainAppState.getQuestionContent,
             ),
           ),
         ],

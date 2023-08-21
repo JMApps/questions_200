@@ -28,7 +28,7 @@ class QuestionItemTablet extends StatelessWidget {
       child: ListTile(
         onTap: () {
           mainAppState.changeQuestionId = model.id;
-          mainAppState.changeQuestionContent = model.questionContent;
+          mainAppState.saveLastLesson = model.id;
         },
         shape: AppStyles.mainShape,
         contentPadding: AppStyles.mainPaddingMini,
@@ -69,7 +69,7 @@ class QuestionItemTablet extends StatelessWidget {
         ),
         leading: IconButton(
           onPressed: () {
-            context.read<MainAppState>().addRemoveBookmark(model.favoriteState == 0 ? 1 : 0, model.id);
+            mainAppState.addRemoveBookmark(model.favoriteState == 0 ? 1 : 0, model.id);
           },
           icon: Icon(
             model.favoriteState == 1
