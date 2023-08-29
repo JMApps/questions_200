@@ -59,7 +59,8 @@ class _QuestionChaptersState extends State<QuestionChapters> {
       ),
       body: FutureBuilder<List<QuestionModel>>(
         future: mainAppState.getDatabaseQuery.getAllQuestions(),
-        builder: (BuildContext context, AsyncSnapshot<List<QuestionModel>> snapshot) {
+        builder: (BuildContext context,
+            AsyncSnapshot<List<QuestionModel>> snapshot) {
           if (snapshot.hasData) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -69,7 +70,7 @@ class _QuestionChaptersState extends State<QuestionChapters> {
                     itemPositionsListener: mainAppState.getItemPositionsListener,
                     itemScrollController: mainAppState.getItemScrollController,
                     scrollDirection: Axis.vertical,
-                    padding: AppStyles.mainPaddingMini,
+                    padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
                     itemCount: snapshot.data!.length,
                     itemBuilder: (BuildContext context, int index) {
                       return ScreenTypeLayout.builder(
@@ -88,7 +89,7 @@ class _QuestionChaptersState extends State<QuestionChapters> {
                 Visibility(
                   visible: mainAppState.getLastQuestion > 0 ? true : false,
                   child: Card(
-                    margin: const EdgeInsets.fromLTRB(8, 0, 8, 16),
+                    margin: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                     shape: RoundedRectangleBorder(
                       borderRadius: AppStyles.mainBorderRadius,
                       side: BorderSide(
@@ -114,7 +115,6 @@ class _QuestionChaptersState extends State<QuestionChapters> {
                             '${AppStrings.lastHead} ${mainAppState.getLastQuestion} ${AppStrings.ofQuestion}',
                             style: const TextStyle(
                               fontSize: 18,
-                              fontWeight: FontWeight.bold,
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -131,7 +131,6 @@ class _QuestionChaptersState extends State<QuestionChapters> {
                             '${AppStrings.lastHead} ${mainAppState.getLastQuestion} ${AppStrings.ofQuestion}',
                             style: const TextStyle(
                               fontSize: 18,
-                              fontWeight: FontWeight.bold,
                             ),
                             textAlign: TextAlign.center,
                           ),

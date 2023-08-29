@@ -1,5 +1,6 @@
 class AppConstraints {
   static const String keyAppSettingsBox = 'key_app_settings_box';
+  static const String keyFavoritesList = 'key_favorites_list';
 
   // Settings
   static const String keyFontIndex = 'key_font_index';
@@ -7,6 +8,7 @@ class AppConstraints {
   static const String keyTextSize = 'key_text_size';
   static const String keyLightTextColor = 'key_light_text_color';
   static const String keyDarkTextColor = 'key_dark_text_color';
+  static const String keyAdaptiveTheme = 'key_adaptive_theme';
   static const String keyDarkTheme = 'key_dark_theme';
   static const String keyWakeLock = 'key_wake_lock';
   static const String keyLastHead = 'key_lesson_last_head';

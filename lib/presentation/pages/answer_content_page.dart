@@ -24,10 +24,11 @@ class AnswerContentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme appColors = Theme.of(context).colorScheme;
+    final ThemeData appTheme = Theme.of(context);
     return FutureBuilder<List<QuestionModel>>(
       future: context.read<MainAppState>().getDatabaseQuery.getAnswerContent(questionId),
-      builder: (BuildContext context, AsyncSnapshot<List<QuestionModel>> snapshot) {
+      builder:
+          (BuildContext context, AsyncSnapshot<List<QuestionModel>> snapshot) {
         if (snapshot.hasData) {
           final QuestionModel model = snapshot.data![0];
           return Consumer<ContentSettingsState>(
@@ -49,6 +50,7 @@ class AnswerContentPage extends StatelessWidget {
                               onPressed: () {
                                 Navigator.pushNamed(context, '/app_settings');
                               },
+                              tooltip: AppStrings.settings,
                               icon: const Icon(CupertinoIcons.settings),
                             ),
                             IconButton(
@@ -57,9 +59,11 @@ class AnswerContentPage extends StatelessWidget {
                                   _parseHtmlText(
                                     '${model.questionNumber}\n\n${model.questionContent}\n\n${AppStrings.answer}\n\n${model.answerContent}\n\n${model.footnoteForShare ?? ''}',
                                   ),
-                                  sharePositionOrigin: const Rect.fromLTWH(0, 0, 10, 10 / 2),
+                                  sharePositionOrigin:
+                                      const Rect.fromLTWH(0, 0, 10, 10 / 2),
                                 );
                               },
+                              tooltip: AppStrings.share,
                               icon: const Icon(CupertinoIcons.share),
                             ),
                           ],
@@ -73,14 +77,14 @@ class AnswerContentPage extends StatelessWidget {
                               style: {
                                 '#': Style(
                                   padding: HtmlPaddings.zero,
-                                  fontSize: FontSize(context.watch<ContentSettingsState>().getTextSize),
+                                  fontSize: FontSize(settingsState.getTextSize),
                                   textAlign: TextAlign.center,
-                                  color: appColors.titleColor,
+                                  color: appTheme.colorScheme.titleColor,
                                   fontWeight: FontWeight.bold,
                                 ),
                                 'a': Style(
                                   fontSize: FontSize(18),
-                                  color: appColors.titleColor,
+                                  color: appTheme.colorScheme.titleColor,
                                   fontFamily: 'Gilroy',
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -106,13 +110,13 @@ class AnswerContentPage extends StatelessWidget {
                                 fontSize: FontSize(settingsState.getTextSize),
                                 fontFamily: AppStyles.getFont[settingsState.getFontIndex],
                                 textAlign: AppStyles.getAlign[settingsState.getTextAlignIndex],
-                                color: settingsState.getDarkTheme
+                                color: appTheme.brightness == Brightness.dark
                                     ? settingsState.getDarkTextColor
                                     : settingsState.getLightTextColor,
                               ),
                               'a': Style(
                                 fontSize: FontSize(18),
-                                color: appColors.titleColor,
+                                color: appTheme.colorScheme.titleColor,
                                 fontFamily: 'Gilroy',
                                 fontWeight: FontWeight.bold,
                               ),
@@ -159,7 +163,8 @@ class AnswerContentPage extends StatelessWidget {
 
   String _parseHtmlText(String htmlText) {
     final documentText = parse(htmlText);
-    final String parsedString = parse(documentText.body!.text).documentElement!.text;
+    final String parsedString =
+        parse(documentText.body!.text).documentElement!.text;
     return parsedString;
   }
 }

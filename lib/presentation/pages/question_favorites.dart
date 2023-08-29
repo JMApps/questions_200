@@ -9,22 +9,31 @@ import 'package:questions_200/presentation/items/question_item.dart';
 import 'package:questions_200/presentation/items/question_item_tablet.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-class QuestionFavorites extends StatelessWidget {
+class QuestionFavorites extends StatefulWidget {
   const QuestionFavorites({super.key});
 
   @override
+  State<QuestionFavorites> createState() => _QuestionFavoritesState();
+}
+
+class _QuestionFavoritesState extends State<QuestionFavorites> {
+  final ScrollController _scrollController = ScrollController();
+  @override
   Widget build(BuildContext context) {
+    final MainAppState appState = Provider.of<MainAppState>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text(AppStrings.bookmarks),
       ),
       body: FutureBuilder<List<QuestionModel>>(
-        future: context.watch<MainAppState>().getDatabaseQuery.getFavoriteChapters(),
+        future: appState.getDatabaseQuery.getFavoriteChapters(favorites: appState.getFavoriteList),
         builder: (BuildContext context, AsyncSnapshot<List<QuestionModel>> snapshot) {
           if (snapshot.hasData) {
             return CupertinoScrollbar(
+              controller: _scrollController,
               child: ListView.builder(
-                padding: AppStyles.mainPaddingMini,
+                controller: _scrollController,
+                padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
                 itemCount: snapshot.data!.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ScreenTypeLayout.builder(

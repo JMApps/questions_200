@@ -48,9 +48,9 @@ flutter:
     - family: Gilroy
       fonts:
         - asset: assets/fonts/gilroy_medium.ttf
-    - family: Ubuntu
+    - family: Montserrat
       fonts:
-        - asset: assets/fonts/ubuntu_medium.ttf
+        - asset: assets/fonts/montserrat_medium.ttf
     - family: Nexa
       fonts:
         - asset: assets/fonts/nexa_reqular.ttf

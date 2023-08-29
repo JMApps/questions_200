@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 import 'package:questions_200/application/state/main_app_state.dart';
+import 'package:questions_200/application/strings/app_strings.dart';
 import 'package:questions_200/application/styles/app_styles.dart';
 import 'package:questions_200/application/themes/app_theme.dart';
 import 'package:questions_200/data/arguments/question_arguments.dart';
@@ -22,13 +23,14 @@ class QuestionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ColorScheme appColors = Theme.of(context).colorScheme;
-    final MainAppState mainAppState = Provider.of<MainAppState>(context);
+    final MainAppState readMainState = context.read<MainAppState>();
+    final bool isBookmark = readMainState.supplicationIsFavorite(model.id);
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
       shape: AppStyles.mainShape,
       child: ListTile(
         onTap: () {
-          mainAppState.saveLastLesson = model.id;
+          readMainState.saveLastLesson = model.id;
           Navigator.pushNamed(
             context,
             '/answer_content',
@@ -76,10 +78,23 @@ class QuestionItem extends StatelessWidget {
         ),
         leading: IconButton(
           onPressed: () {
-            mainAppState.addRemoveBookmark(model.favoriteState == 0 ? 1 : 0, model.id);
+            readMainState.toggleFavorite(model.id);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: appColors.titleColor,
+                duration: const Duration(milliseconds: 350),
+                content: Text(
+                  isBookmark ? AppStrings.removed : AppStrings.added,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            );
           },
           icon: Icon(
-            model.favoriteState == 1
+            isBookmark
                 ? CupertinoIcons.bookmark_solid
                 : CupertinoIcons.bookmark,
             color: appColors.titleColor,

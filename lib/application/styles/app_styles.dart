@@ -18,7 +18,7 @@ class AppStyles {
 
   static const List<String> getFont = [
     'Gilroy',
-    'Ubuntu',
+    'Montserrat',
     'Nexa',
   ];
 

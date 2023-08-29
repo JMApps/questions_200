@@ -28,6 +28,7 @@ void main() async {
   }
   await Hive.initFlutter();
   await Hive.openBox(AppConstraints.keyAppSettingsBox);
+  await Hive.openBox(AppConstraints.keyFavoritesList);
   runApp(
     MultiProvider(
       providers: [
@@ -48,6 +49,7 @@ class RootPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ContentSettingsState settings = context.watch<ContentSettingsState>();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       onGenerateRoute: AppRoutes.onGenerateRoute,
@@ -68,9 +70,11 @@ class RootPage extends StatelessWidget {
           child: child!,
         );
       },
-      themeMode: context.watch<ContentSettingsState>().getDarkTheme
-          ? ThemeMode.dark
-          : ThemeMode.light,
+      themeMode: settings.getAdaptiveTheme
+          ? ThemeMode.system
+          : settings.getDarkTheme
+              ? ThemeMode.dark
+              : ThemeMode.light,
       darkTheme: AppTheme.darkTheme,
       home: ScreenTypeLayout.builder(
         mobile: (BuildContext context) => const MainPage(),

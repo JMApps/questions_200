@@ -23,7 +23,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final MainAppState mainAppState = context.watch<MainAppState>();
+    final MainAppState mainAppState = Provider.of<MainAppState>(context);
     return Scaffold(
       body: AnimatedSwitcher(
         duration: const Duration(milliseconds: 250),
@@ -36,26 +36,30 @@ class _MainPageState extends State<MainPage> {
         items: [
           BottomNavigationBarItem(
             label: AppStrings.heads,
+            tooltip: AppStrings.heads,
             icon: GestureDetector(
-                onDoubleTap: () {
-                  context.read<MainAppState>().getItemScrollController.scrollTo(
-                        index: 0,
-                        duration: const Duration(milliseconds: 500),
-                      );
-                },
-                child: const Icon(CupertinoIcons.collections)),
+              onDoubleTap: () {
+                mainAppState.getItemScrollController.scrollTo(
+                  index: 0,
+                  duration: const Duration(milliseconds: 500),
+                );
+              },
+              child: const Icon(CupertinoIcons.collections),
+            ),
           ),
           const BottomNavigationBarItem(
             label: AppStrings.bookmarks,
+            tooltip: AppStrings.bookmarks,
             icon: Icon(CupertinoIcons.bookmark),
           ),
           const BottomNavigationBarItem(
             label: AppStrings.settings,
+            tooltip: AppStrings.settings,
             icon: Icon(CupertinoIcons.settings),
           ),
         ],
         currentIndex: mainAppState.getSelectedIndex,
-        onTap: context.read<MainAppState>().changeSelectedIndex,
+        onTap: mainAppState.changeSelectedIndex,
       ),
     );
   }

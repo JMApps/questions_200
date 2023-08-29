@@ -16,7 +16,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    final TextTheme headLineStyle = Theme.of(context).textTheme;
+    final ThemeData appTheme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text(AppStrings.settings),
@@ -30,7 +30,7 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 Text(
                   AppStrings.textFont,
-                  style: headLineStyle.headlineMedium,
+                  style: appTheme.textTheme.headlineMedium,
                 ),
                 const SizedBox(height: 8),
                 CupertinoSlidingSegmentedControl(
@@ -38,15 +38,15 @@ class _SettingsPageState extends State<SettingsPage> {
                   children: <int, Widget>{
                     0: Text(
                       'Gilroy',
-                      style: headLineStyle.headlineMedium,
+                      style: appTheme.textTheme.headlineMedium,
                     ),
                     1: Text(
-                      'Ubuntu',
-                      style: headLineStyle.headlineMedium,
+                      'Montserrat',
+                      style: appTheme.textTheme.headlineMedium,
                     ),
                     2: Text(
                       'Nexa',
-                      style: headLineStyle.headlineMedium,
+                      style: appTheme.textTheme.headlineMedium,
                     ),
                   },
                   groupValue: settingsState.getFontIndex,
@@ -57,7 +57,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SizedBox(height: 16),
                 Text(
                   AppStrings.alignText,
-                  style: headLineStyle.headlineMedium,
+                  style: appTheme.textTheme.headlineMedium,
                 ),
                 const SizedBox(height: 8),
                 CupertinoSlidingSegmentedControl(
@@ -76,7 +76,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SizedBox(height: 8),
                 Text(
                   AppStrings.textSize,
-                  style: headLineStyle.headlineMedium,
+                  style: appTheme.textTheme.headlineMedium,
                 ),
                 Slider(
                   value: settingsState.getTextSize,
@@ -99,11 +99,11 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     title: Text(
                       AppStrings.textColor,
-                      style: headLineStyle.headlineMedium,
+                      style: appTheme.textTheme.headlineMedium,
                     ),
                     leading: Icon(
                       Icons.palette_outlined,
-                      color: settingsState.getDarkTheme
+                      color: appTheme.brightness == Brightness.dark
                           ? settingsState.getDarkTextColor
                           : settingsState.getLightTextColor,
                     ),
@@ -205,15 +205,27 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ),
                 SwitchListTile(
-                  value: settingsState.getDarkTheme,
+                  value: settingsState.getAdaptiveTheme,
                   onChanged: (bool? onChanged) {
+                    settingsState.changeAdaptiveTheme = onChanged!;
+                  },
+                  shape: AppStyles.mainShape,
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    AppStrings.adaptiveTheme,
+                    style: appTheme.textTheme.headlineMedium,
+                  ),
+                ),
+                SwitchListTile(
+                  value: settingsState.getDarkTheme,
+                  onChanged: settingsState.getAdaptiveTheme ? null : (bool? onChanged) {
                     settingsState.changeDarkTheme = onChanged!;
                   },
                   shape: AppStyles.mainShape,
                   contentPadding: EdgeInsets.zero,
                   title: Text(
                     AppStrings.darkTheme,
-                    style: headLineStyle.headlineMedium,
+                    style: appTheme.textTheme.headlineMedium,
                   ),
                 ),
                 SwitchListTile(
@@ -225,7 +237,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   contentPadding: EdgeInsets.zero,
                   title: Text(
                     AppStrings.displayAlways,
-                    style: headLineStyle.headlineMedium,
+                    style: appTheme.textTheme.headlineMedium,
                   ),
                 ),
               ],

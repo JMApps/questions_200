@@ -39,17 +39,19 @@ class _TabletPageState extends State<TabletPage> {
                 items: [
                   BottomNavigationBarItem(
                     label: AppStrings.heads,
+                    tooltip: AppStrings.heads,
                     icon: GestureDetector(
                         onDoubleTap: () {
                           context.read<MainAppState>().getItemScrollController.scrollTo(
                             index: 0,
-                            duration: const Duration(milliseconds: 500),
+                            duration: const Duration(milliseconds: 250),
                           );
                         },
                         child: const Icon(CupertinoIcons.collections)),
                   ),
                   const BottomNavigationBarItem(
                     label: AppStrings.bookmarks,
+                    tooltip: AppStrings.bookmarks,
                     icon: Icon(CupertinoIcons.bookmark),
                   ),
                 ],

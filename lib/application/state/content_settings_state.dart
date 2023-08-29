@@ -6,7 +6,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 class ContentSettingsState extends ChangeNotifier {
   final _contentSettingsBox = Hive.box(AppConstraints.keyAppSettingsBox);
 
-  int _fontIndex = 2;
+  int _fontIndex = 0;
 
   int get getFontIndex => _fontIndex;
 
@@ -26,7 +26,7 @@ class ContentSettingsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  double _textSize = 25;
+  double _textSize = 18.0;
 
   double get getTextSize => _textSize;
 
@@ -53,6 +53,16 @@ class ContentSettingsState extends ChangeNotifier {
   set changeArabicDarkColor(Color color) {
     _darkTextColor = color;
     _contentSettingsBox.put(AppConstraints.keyDarkTextColor, color.value);
+    notifyListeners();
+  }
+
+  bool _adaptiveTheme = true;
+
+  bool get getAdaptiveTheme => _adaptiveTheme;
+
+  set changeAdaptiveTheme(bool onChanged) {
+    _adaptiveTheme = onChanged;
+    _contentSettingsBox.put(AppConstraints.keyAdaptiveTheme, onChanged);
     notifyListeners();
   }
 
@@ -84,6 +94,7 @@ class ContentSettingsState extends ChangeNotifier {
     _textSize = _contentSettingsBox.get(AppConstraints.keyTextSize, defaultValue: 18.0);
     _lightTextColor = Color(_contentSettingsBox.get(AppConstraints.keyLightTextColor, defaultValue: Colors.grey.shade900.value));
     _darkTextColor = Color(_contentSettingsBox.get(AppConstraints.keyDarkTextColor, defaultValue: Colors.grey.shade50.value));
+    _adaptiveTheme = _contentSettingsBox.get(AppConstraints.keyAdaptiveTheme, defaultValue: true);
     _darkTheme = _contentSettingsBox.get(AppConstraints.keyDarkTheme, defaultValue: false);
     _wakeLock = _contentSettingsBox.get(AppConstraints.keyWakeLock, defaultValue: true);
     _wakeLock ? WakelockPlus.enable() : WakelockPlus.disable();
