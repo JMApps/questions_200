@@ -54,8 +54,7 @@ class QuestionChapters extends StatelessWidget {
       ),
       body: FutureBuilder<List<QuestionModel>>(
         future: mainAppState.getDatabaseQuery.getAllQuestions(),
-        builder: (BuildContext context,
-            AsyncSnapshot<List<QuestionModel>> snapshot) {
+        builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -89,7 +88,7 @@ class QuestionChapters extends StatelessWidget {
                       borderRadius: AppStyles.mainBorderRadius,
                       side: BorderSide(
                         width: 1,
-                        color: appColors.primary,
+                        color: appColors.secondary,
                       ),
                     ),
                     child: ScreenTypeLayout.builder(

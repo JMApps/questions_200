@@ -81,13 +81,13 @@ class QuestionItem extends StatelessWidget {
             readMainState.toggleFavorite(model.id);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                backgroundColor: appColors.primary,
+                backgroundColor: appColors.secondaryContainer,
                 duration: const Duration(milliseconds: 350),
                 content: Text(
                   isBookmark ? AppStrings.removed : AppStrings.added,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
-                    color: Colors.white,
+                    color: appColors.inverseSurface,
                   ),
                 ),
               ),

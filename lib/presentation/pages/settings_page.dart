@@ -84,6 +84,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   min: 14,
                   max: 100,
                   divisions: 100,
+                  activeColor: appTheme.colorScheme.secondary,
                   label: settingsState.getTextSize.round().toString(),
                   onChanged: (double? size) {
                     settingsState.changeTextSize = size!;

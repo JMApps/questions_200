@@ -74,13 +74,13 @@ class QuestionItemTablet extends StatelessWidget {
             readMainState.toggleFavorite(model.id);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                backgroundColor: appColors.primary,
+                backgroundColor: appColors.secondary,
                 duration: const Duration(milliseconds: 350),
                 content: Text(
                   isBookmark ? AppStrings.removed : AppStrings.added,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 20,
-                    color: Colors.white,
+                    color: appColors.inverseSurface,
                   ),
                 ),
               ),
