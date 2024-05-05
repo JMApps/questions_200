@@ -13,7 +13,7 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-  flutterVersionCode = '23'
+  flutterVersionCode = '24'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
@@ -46,6 +46,7 @@ android {
   defaultConfig {
     applicationId "jmapps.questions200"
     compileSdk 34
+    targetSdk 34
     minSdkVersion 21
     versionCode flutterVersionCode.toInteger()
     versionName flutterVersionName
