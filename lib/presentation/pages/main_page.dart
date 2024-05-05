@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:questions_200/application/state/main_app_state.dart';
-import 'package:questions_200/application/strings/app_strings.dart';
-import 'package:questions_200/presentation/pages/question_chapters.dart';
-import 'package:questions_200/presentation/pages/question_favorites.dart';
-import 'package:questions_200/presentation/pages/settings_page.dart';
+
+import '../../application/state/main_app_state.dart';
+import '../../application/strings/app_strings.dart';
+import 'question_chapters.dart';
+import 'question_favorites.dart';
+import 'settings_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

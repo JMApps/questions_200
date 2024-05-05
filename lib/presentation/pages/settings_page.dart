@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:questions_200/application/state/content_settings_state.dart';
-import 'package:questions_200/application/strings/app_strings.dart';
-import 'package:questions_200/application/styles/app_styles.dart';
+
+import '../../application/state/content_settings_state.dart';
+import '../../application/strings/app_strings.dart';
+import '../../application/styles/app_styles.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -45,7 +46,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       style: appTheme.textTheme.headlineMedium,
                     ),
                     2: Text(
-                      'Nexa',
+                      'Raleway',
                       style: appTheme.textTheme.headlineMedium,
                     ),
                   },

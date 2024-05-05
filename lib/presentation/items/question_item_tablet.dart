@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
-import 'package:questions_200/application/state/main_app_state.dart';
-import 'package:questions_200/application/strings/app_strings.dart';
-import 'package:questions_200/application/styles/app_styles.dart';
-import 'package:questions_200/application/themes/app_theme.dart';
-import 'package:questions_200/data/model/question_model.dart';
-import 'package:questions_200/presentation/widgets/footnote_data.dart';
+
+import '../../application/state/main_app_state.dart';
+import '../../application/strings/app_strings.dart';
+import '../../application/styles/app_styles.dart';
+import '../../data/model/question_model.dart';
+import '../widgets/footnote_data.dart';
 
 class QuestionItemTablet extends StatelessWidget {
   const QuestionItemTablet({
@@ -38,7 +38,7 @@ class QuestionItemTablet extends StatelessWidget {
         title: Text(
           model.questionNumber,
           style: TextStyle(
-            color: appColors.titleColor,
+            color: appColors.secondary,
             fontSize: 18,
             fontWeight: FontWeight.bold,
             fontFamily: 'Gilroy',
@@ -54,7 +54,7 @@ class QuestionItemTablet extends StatelessWidget {
             ),
             'a': Style(
               fontSize: FontSize(18),
-              color: appColors.titleColor,
+              color: appColors.primary,
               fontFamily: 'Gilroy',
               fontWeight: FontWeight.bold,
             ),
@@ -74,7 +74,7 @@ class QuestionItemTablet extends StatelessWidget {
             readMainState.toggleFavorite(model.id);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                backgroundColor: appColors.titleColor,
+                backgroundColor: appColors.primary,
                 duration: const Duration(milliseconds: 350),
                 content: Text(
                   isBookmark ? AppStrings.removed : AppStrings.added,
@@ -90,7 +90,7 @@ class QuestionItemTablet extends StatelessWidget {
             isBookmark
                 ? CupertinoIcons.bookmark_solid
                 : CupertinoIcons.bookmark,
-            color: appColors.titleColor,
+            color: appColors.secondary,
           ),
         ),
       ),

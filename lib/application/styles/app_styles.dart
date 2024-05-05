@@ -5,6 +5,7 @@ class AppStyles {
   static const EdgeInsets mainPaddingMini = EdgeInsets.all(8);
   static const EdgeInsets mainMargin = EdgeInsets.all(16);
   static const EdgeInsets mainMarginMini = EdgeInsets.all(8);
+  static const EdgeInsets mainPaddingWithoutTop = EdgeInsets.only(left: 8, right: 8, bottom: 22);
 
   static const RoundedRectangleBorder mainShape = RoundedRectangleBorder(
     borderRadius: BorderRadius.all(
@@ -19,7 +20,7 @@ class AppStyles {
   static const List<String> getFont = [
     'Gilroy',
     'Montserrat',
-    'Nexa',
+    'Raleway',
   ];
 
   static const List<TextAlign> getAlign = [

@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
-import 'package:questions_200/application/state/main_app_state.dart';
-import 'package:questions_200/application/strings/app_strings.dart';
-import 'package:questions_200/application/styles/app_styles.dart';
-import 'package:questions_200/application/themes/app_theme.dart';
-import 'package:questions_200/data/arguments/question_arguments.dart';
-import 'package:questions_200/data/model/question_model.dart';
-import 'package:questions_200/presentation/widgets/footnote_data.dart';
+
+import '../../application/state/main_app_state.dart';
+import '../../application/strings/app_strings.dart';
+import '../../application/styles/app_styles.dart';
+import '../../data/arguments/question_arguments.dart';
+import '../../data/model/question_model.dart';
+import '../widgets/footnote_data.dart';
 
 class QuestionItem extends StatelessWidget {
   const QuestionItem({
@@ -22,7 +22,7 @@ class QuestionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme appColors = Theme.of(context).colorScheme;
+    final appColors = Theme.of(context).colorScheme;
     final MainAppState readMainState = context.read<MainAppState>();
     final bool isBookmark = readMainState.supplicationIsFavorite(model.id);
     return Card(
@@ -45,7 +45,7 @@ class QuestionItem extends StatelessWidget {
         title: Text(
           model.questionNumber,
           style: TextStyle(
-            color: appColors.titleColor,
+            color: appColors.secondary,
             fontSize: 18,
             fontWeight: FontWeight.bold,
             fontFamily: 'Gilroy',
@@ -61,15 +61,15 @@ class QuestionItem extends StatelessWidget {
             ),
             'a': Style(
               fontSize: FontSize(18),
-              color: appColors.titleColor,
-              fontFamily: 'Gilroy',
-              fontWeight: FontWeight.bold,
+              color: appColors.error,
+              fontFamily: 'Raleway',
             ),
           },
           onLinkTap: (String? footnoteId, _, __) {
             showModalBottomSheet(
               context: context,
               isScrollControlled: true,
+              backgroundColor: appColors.background,
               builder: (context) => FootnoteData(
                 footnoteId: int.parse(footnoteId!),
               ),
@@ -81,7 +81,7 @@ class QuestionItem extends StatelessWidget {
             readMainState.toggleFavorite(model.id);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                backgroundColor: appColors.titleColor,
+                backgroundColor: appColors.primary,
                 duration: const Duration(milliseconds: 350),
                 content: Text(
                   isBookmark ? AppStrings.removed : AppStrings.added,
@@ -97,7 +97,7 @@ class QuestionItem extends StatelessWidget {
             isBookmark
                 ? CupertinoIcons.bookmark_solid
                 : CupertinoIcons.bookmark,
-            color: appColors.titleColor,
+            color: appColors.secondary,
           ),
         ),
       ),

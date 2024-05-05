@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:questions_200/data/arguments/question_arguments.dart';
-import 'package:questions_200/presentation/pages/answer_content_page.dart';
-import 'package:questions_200/presentation/pages/settings_page.dart';
+
+import '../../data/arguments/question_arguments.dart';
+import '../../presentation/pages/answer_content_page.dart';
+import '../../presentation/pages/settings_page.dart';
 
 class AppRoutes {
   static Route onGenerateRoute(RouteSettings routeSettings) {

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:questions_200/application/strings/app_constraints.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
+
+import '../strings/app_constraints.dart';
 
 class ContentSettingsState extends ChangeNotifier {
   final _contentSettingsBox = Hive.box(AppConstraints.keyAppSettingsBox);
 
-  int _fontIndex = 0;
+  late int _fontIndex;
 
   int get getFontIndex => _fontIndex;
 
@@ -16,7 +17,7 @@ class ContentSettingsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  int _textAlignIndex = 0;
+  late int _textAlignIndex;
 
   int get getTextAlignIndex => _textAlignIndex;
 
@@ -26,7 +27,7 @@ class ContentSettingsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  double _textSize = 18.0;
+  late double _textSize;
 
   double get getTextSize => _textSize;
 
@@ -36,7 +37,7 @@ class ContentSettingsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Color _lightTextColor = Colors.grey.shade900;
+  late Color _lightTextColor;
 
   Color get getLightTextColor => _lightTextColor;
 
@@ -46,7 +47,7 @@ class ContentSettingsState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Color _darkTextColor = Colors.grey.shade50;
+  late Color _darkTextColor;
 
   Color get getDarkTextColor => _darkTextColor;
 

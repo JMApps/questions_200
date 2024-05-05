@@ -3,26 +3,21 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:questions_200/application/state/main_app_state.dart';
-import 'package:questions_200/application/strings/app_strings.dart';
-import 'package:questions_200/application/styles/app_styles.dart';
-import 'package:questions_200/application/themes/app_theme.dart';
-import 'package:questions_200/data/arguments/question_arguments.dart';
-import 'package:questions_200/data/model/question_model.dart';
-import 'package:questions_200/presentation/items/question_item.dart';
-import 'package:questions_200/presentation/items/question_item_tablet.dart';
-import 'package:questions_200/presentation/widgets/search_question_delegate.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-class QuestionChapters extends StatefulWidget {
-  const QuestionChapters({Key? key}) : super(key: key);
+import '../../application/state/main_app_state.dart';
+import '../../application/strings/app_strings.dart';
+import '../../application/styles/app_styles.dart';
+import '../../data/arguments/question_arguments.dart';
+import '../../data/model/question_model.dart';
+import '../items/question_item.dart';
+import '../items/question_item_tablet.dart';
+import '../widgets/search_question_delegate.dart';
 
-  @override
-  State<QuestionChapters> createState() => _QuestionChaptersState();
-}
+class QuestionChapters extends StatelessWidget {
+  const QuestionChapters({super.key});
 
-class _QuestionChaptersState extends State<QuestionChapters> {
   @override
   Widget build(BuildContext context) {
     final MainAppState mainAppState = Provider.of<MainAppState>(context);
@@ -94,7 +89,7 @@ class _QuestionChaptersState extends State<QuestionChapters> {
                       borderRadius: AppStyles.mainBorderRadius,
                       side: BorderSide(
                         width: 1,
-                        color: appColors.titleColor,
+                        color: appColors.primary,
                       ),
                     ),
                     child: ScreenTypeLayout.builder(
@@ -110,7 +105,7 @@ class _QuestionChaptersState extends State<QuestionChapters> {
                         },
                         borderRadius: AppStyles.mainBorderRadius,
                         child: Padding(
-                          padding: AppStyles.mainPaddingMini,
+                          padding: EdgeInsets.zero,
                           child: Text(
                             '${AppStrings.lastHead} ${mainAppState.getLastQuestion} ${AppStrings.ofQuestion}',
                             style: const TextStyle(

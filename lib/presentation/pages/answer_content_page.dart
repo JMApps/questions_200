@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:html/parser.dart';
 import 'package:provider/provider.dart';
-import 'package:questions_200/application/state/content_settings_state.dart';
-import 'package:questions_200/application/state/main_app_state.dart';
-import 'package:questions_200/application/strings/app_strings.dart';
-import 'package:questions_200/application/styles/app_styles.dart';
-import 'package:questions_200/application/themes/app_theme.dart';
-import 'package:questions_200/data/model/question_model.dart';
-import 'package:questions_200/presentation/widgets/footnote_data.dart';
 import 'package:share_plus/share_plus.dart';
+
+import '../../application/state/content_settings_state.dart';
+import '../../application/state/main_app_state.dart';
+import '../../application/strings/app_strings.dart';
+import '../../application/styles/app_styles.dart';
+import '../../data/model/question_model.dart';
+import '../widgets/footnote_data.dart';
 
 class AnswerContentPage extends StatelessWidget {
   const AnswerContentPage({
@@ -24,13 +24,12 @@ class AnswerContentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData appTheme = Theme.of(context);
-    return FutureBuilder<List<QuestionModel>>(
+    final appTheme = Theme.of(context);
+    return FutureBuilder<QuestionModel>(
       future: context.read<MainAppState>().getDatabaseQuery.getAnswerContent(questionId),
-      builder:
-          (BuildContext context, AsyncSnapshot<List<QuestionModel>> snapshot) {
+      builder: (context, snapshot) {
         if (snapshot.hasData) {
-          final QuestionModel model = snapshot.data![0];
+          final QuestionModel model = snapshot.data!;
           return Consumer<ContentSettingsState>(
             builder: (context, settingsState, _) {
               return Scaffold(
@@ -59,8 +58,7 @@ class AnswerContentPage extends StatelessWidget {
                                   _parseHtmlText(
                                     '${model.questionNumber}\n\n${model.questionContent}\n\n${AppStrings.answer}\n\n${model.answerContent}\n\n${model.footnoteForShare ?? ''}',
                                   ),
-                                  sharePositionOrigin:
-                                      const Rect.fromLTWH(0, 0, 10, 10 / 2),
+                                  sharePositionOrigin: const Rect.fromLTWH(0, 0, 10, 10 / 2),
                                 );
                               },
                               tooltip: AppStrings.share,
@@ -79,12 +77,12 @@ class AnswerContentPage extends StatelessWidget {
                                   padding: HtmlPaddings.zero,
                                   fontSize: FontSize(settingsState.getTextSize),
                                   textAlign: TextAlign.center,
-                                  color: appTheme.colorScheme.titleColor,
+                                  color: appTheme.colorScheme.secondary,
                                   fontWeight: FontWeight.bold,
                                 ),
                                 'a': Style(
                                   fontSize: FontSize(18),
-                                  color: appTheme.colorScheme.titleColor,
+                                  color: appTheme.colorScheme.secondary,
                                   fontFamily: 'Gilroy',
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -116,15 +114,14 @@ class AnswerContentPage extends StatelessWidget {
                               ),
                               'a': Style(
                                 fontSize: FontSize(18),
-                                color: appTheme.colorScheme.titleColor,
-                                fontFamily: 'Gilroy',
+                                color: appTheme.colorScheme.error,
+                                fontFamily: 'Raleway',
                                 fontWeight: FontWeight.bold,
                               ),
                             },
                             onLinkTap: (String? footnoteId, _, __) {
                               showModalBottomSheet(
                                 context: context,
-                                backgroundColor: Colors.transparent,
                                 isScrollControlled: true,
                                 builder: (context) => FootnoteData(
                                   footnoteId: int.parse(footnoteId!),

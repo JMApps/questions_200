@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:questions_200/application/styles/app_styles.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
-    useMaterial3: true,
     colorSchemeSeed: Colors.green,
-    fontFamily: 'Nexa',
+    fontFamily: 'Raleway',
     appBarTheme: const AppBarTheme(
       centerTitle: true,
     ),
@@ -16,17 +14,16 @@ class AppTheme {
       ),
     ),
     bottomSheetTheme: const BottomSheetThemeData(
-      backgroundColor: Colors.transparent,
-      surfaceTintColor: Colors.transparent,
-      shape: AppStyles.mainShape,
+      showDragHandle: true,
+      dragHandleSize: Size(45, 3),
     ),
+    cardColor: const Color(0xFFE8F5E9),
   );
 
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
-    useMaterial3: true,
-    colorSchemeSeed: Colors.yellow,
-    fontFamily: 'Nexa',
+    colorSchemeSeed: Colors.green,
+    fontFamily: 'Raleway',
     appBarTheme: const AppBarTheme(
       centerTitle: true,
     ),
@@ -36,15 +33,9 @@ class AppTheme {
       ),
     ),
     bottomSheetTheme: const BottomSheetThemeData(
-      backgroundColor: Colors.transparent,
-      surfaceTintColor: Colors.transparent,
-      shape: AppStyles.mainShape,
+      showDragHandle: true,
+      dragHandleSize: Size(45, 3),
     ),
+    cardColor: const Color(0xFF111C11),
   );
-}
-
-extension ColorSchemeS on ColorScheme {
-  Color get titleColor => brightness == Brightness.light
-      ? const Color(0xFF1B5E20)
-      : const Color(0xFFFBC02D);
 }

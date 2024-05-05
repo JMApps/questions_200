@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:questions_200/application/strings/app_constraints.dart';
-import 'package:questions_200/data/database_query.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
+import '../../data/database_query.dart';
+import '../strings/app_constraints.dart';
 
 class MainAppState extends ChangeNotifier {
   final _contentSettingsBox = Hive.box(AppConstraints.keyAppSettingsBox);
@@ -43,7 +44,7 @@ class MainAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  int _lastQuestion = 0;
+  late int _lastQuestion;
 
   int get getLastQuestion => _lastQuestion;
 

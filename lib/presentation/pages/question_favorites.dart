@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:questions_200/application/state/main_app_state.dart';
-import 'package:questions_200/application/strings/app_strings.dart';
-import 'package:questions_200/application/styles/app_styles.dart';
-import 'package:questions_200/data/model/question_model.dart';
-import 'package:questions_200/presentation/items/question_item.dart';
-import 'package:questions_200/presentation/items/question_item_tablet.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+
+import '../../application/state/main_app_state.dart';
+import '../../application/strings/app_strings.dart';
+import '../../application/styles/app_styles.dart';
+import '../../data/model/question_model.dart';
+import '../items/question_item.dart';
+import '../items/question_item_tablet.dart';
 
 class QuestionFavorites extends StatefulWidget {
   const QuestionFavorites({super.key});
