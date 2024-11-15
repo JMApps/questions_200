@@ -1,16 +1,18 @@
+import '../../core/strings/db_values.dart';
+
 class FootnoteModel {
   final int id;
   final String footnoteContent;
 
-  FootnoteModel({
+  const FootnoteModel({
     required this.id,
     required this.footnoteContent,
   });
 
-  factory FootnoteModel.fromMap(Map<String, dynamic> map) {
+  factory FootnoteModel.fromMap(Map<String, Object?> map) {
     return FootnoteModel(
-      id: map['id'],
-      footnoteContent: map['footnote_content'],
+      id: map[DbValues.dbId] as int,
+      footnoteContent: map[DbValues.dbFootnoteContent] as String,
     );
   }
 }
