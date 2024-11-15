@@ -1,14 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 
-import '../../application/state/main_app_state.dart';
-import '../../application/strings/app_strings.dart';
-import '../../application/styles/app_styles.dart';
-import '../../data/arguments/question_arguments.dart';
-import '../../data/model/question_model.dart';
-import '../widgets/footnote_data.dart';
+import '../../core/routes/app_route_names.dart';
+import '../../core/strings/app_strings.dart';
+import '../../core/styles/app_styles.dart';
+import '../../domain/entities/question_entity.dart';
+import '../state/main_app_state.dart';
+import '../state/questions_state.dart';
+import '../widgets/main_html_data.dart';
 
 class QuestionItem extends StatelessWidget {
   const QuestionItem({
@@ -17,68 +16,52 @@ class QuestionItem extends StatelessWidget {
     required this.index,
   });
 
-  final QuestionModel model;
+  final QuestionEntity model;
   final int index;
 
   @override
   Widget build(BuildContext context) {
     final appColors = Theme.of(context).colorScheme;
-    final MainAppState readMainState = context.read<MainAppState>();
-    final bool isBookmark = readMainState.supplicationIsFavorite(model.id);
-    return Card(
-      margin: const EdgeInsets.only(bottom: 8),
-      shape: AppStyles.mainShape,
+    final itemOddColor = appColors.primary.withOpacity(0.025);
+    final itemEvenColor = appColors.primary.withOpacity(0.075);
+    final bool isBookmark = Provider.of<QuestionsState>(context).questionIsFavorite(model.id);
+    return Container(
+      margin: AppStyles.paddingBottom,
+      decoration: BoxDecoration(
+        color: index.isOdd ? itemOddColor : itemEvenColor,
+        borderRadius: AppStyles.mainBorderRadius,
+      ),
       child: ListTile(
-        onTap: () {
-          readMainState.saveLastLesson = model.id;
-          Navigator.pushNamed(
-            context,
-            '/answer_content',
-            arguments: QuestionArguments(
-              questionId: model.id,
-            ),
-          );
-        },
         shape: AppStyles.mainShape,
         contentPadding: AppStyles.mainPaddingMini,
-        visualDensity: const VisualDensity(horizontal: -4),
+        horizontalTitleGap: 4,
+        splashColor: itemOddColor,
+        onTap: () async {
+          Provider.of<MainAppState>(context, listen: false).setQuestionId = model.id;
+          await Navigator.pushNamed(
+            context,
+            AppRouteNames.questionContentPage,
+          );
+        },
         title: Text(
           model.questionNumber,
           style: TextStyle(
             color: appColors.secondary,
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            fontFamily: 'Gilroy',
+            fontFamily: AppStrings.fontGilroy,
           ),
         ),
-        subtitle: Html(
-          data: model.questionContent,
-          style: {
-            '#': Style(
-              padding: HtmlPaddings.zero,
-              margin: Margins.zero,
-              fontSize: FontSize(18),
-            ),
-            'a': Style(
-              fontSize: FontSize(18),
-              color: appColors.error,
-              fontFamily: 'Raleway',
-            ),
-          },
-          onLinkTap: (String? footnoteId, _, __) {
-            showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              backgroundColor: appColors.background,
-              builder: (context) => FootnoteData(
-                footnoteId: int.parse(footnoteId!),
-              ),
-            );
-          },
+        subtitle: MainHtmlData(
+          htmlData: model.questionContent,
+          font: AppStrings.fontRaleway,
+          fontSize: 18.0,
+          textAlign: TextAlign.start,
+          fontColor: appColors.onSurface,
         ),
-        leading: IconButton(
+        leading: IconButton.filledTonal(
           onPressed: () {
-            readMainState.toggleFavorite(model.id);
+            Provider.of<QuestionsState>(context, listen: false).toggleQuestionFavorite(questionId: model.id);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: appColors.secondaryContainer,
@@ -86,17 +69,15 @@ class QuestionItem extends StatelessWidget {
                 content: Text(
                   isBookmark ? AppStrings.removed : AppStrings.added,
                   style: TextStyle(
-                    fontSize: 18,
-                    color: appColors.inverseSurface,
+                    fontSize: 18.0,
+                    color: appColors.onSurface,
                   ),
                 ),
               ),
             );
           },
           icon: Icon(
-            isBookmark
-                ? CupertinoIcons.bookmark_solid
-                : CupertinoIcons.bookmark,
+            isBookmark ? Icons.bookmark : Icons.bookmark_border,
             color: appColors.secondary,
           ),
         ),

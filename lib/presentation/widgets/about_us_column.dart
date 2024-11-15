@@ -11,7 +11,7 @@ class AboutUsColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SingleChildScrollView(
       padding: AppStyles.paddingWithoutTop,
       child: Column(
         mainAxisSize: MainAxisSize.min,
