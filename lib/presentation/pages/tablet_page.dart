@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../application/state/main_app_state.dart';
-import '../../application/strings/app_strings.dart';
-import 'answer_content_page.dart';
-import 'question_chapters.dart';
-import 'question_favorites.dart';
+import '../../core/strings/app_strings.dart';
+import '../lists/favorite_questions_list.dart';
+import '../lists/main_questions_list.dart';
+import '../state/main_app_state.dart';
+import 'content_question_page.dart';
+
 class TabletPage extends StatefulWidget {
   const TabletPage({super.key});
 
@@ -16,58 +17,56 @@ class TabletPage extends StatefulWidget {
 
 class _TabletPageState extends State<TabletPage> {
   final List<Widget> _listWidgets = [
-    const QuestionChapters(),
-    const QuestionFavorites(),
+    const MainQuestionsList(),
+    const FavoriteQuestionsList(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    final MainAppState mainAppState = Provider.of<MainAppState>(context);
-    return Material(
-      child: Row(
-        children: [
-          Expanded(
-            child: Scaffold(
-              body: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 250),
-                switchInCurve: Curves.easeInToLinear,
-                switchOutCurve: Curves.easeInToLinear,
-                child: _listWidgets[mainAppState.getSelectedIndex],
-              ),
-              bottomNavigationBar: BottomNavigationBar(
-                useLegacyColorScheme: false,
-                items: [
-                  BottomNavigationBarItem(
-                    label: AppStrings.heads,
-                    tooltip: AppStrings.heads,
-                    icon: GestureDetector(
-                        onDoubleTap: () {
-                          context.read<MainAppState>().getItemScrollController.scrollTo(
-                            index: 0,
-                            duration: const Duration(milliseconds: 250),
-                          );
-                        },
-                        child: const Icon(CupertinoIcons.collections)),
+    return Consumer<MainAppState>(
+      builder: (context, mainAppState, _) {
+        return Material(
+          child: Row(
+            children: [
+              Expanded(
+                child: Scaffold(
+                  body: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 250),
+                    switchInCurve: Curves.easeInToLinear,
+                    switchOutCurve: Curves.easeInToLinear,
+                    child: _listWidgets[mainAppState.getSelectedIndex],
                   ),
-                  const BottomNavigationBarItem(
-                    label: AppStrings.bookmarks,
-                    tooltip: AppStrings.bookmarks,
-                    icon: Icon(CupertinoIcons.bookmark),
+                  bottomNavigationBar: BottomNavigationBar(
+                    useLegacyColorScheme: false,
+                    items: [
+                      BottomNavigationBarItem(
+                        label: AppStrings.heads,
+                        tooltip: AppStrings.heads,
+                        icon: GestureDetector(
+                          onDoubleTap: () {},
+                          child: const Icon(CupertinoIcons.collections),
+                        ),
+                      ),
+                      const BottomNavigationBarItem(
+                        label: AppStrings.bookmarks,
+                        tooltip: AppStrings.bookmarks,
+                        icon: Icon(CupertinoIcons.bookmark),
+                      ),
+                    ],
+                    currentIndex: mainAppState.getSelectedIndex,
+                    onTap: (index) => mainAppState.setSelectedIndex = index,
                   ),
-                ],
-                currentIndex: mainAppState.getSelectedIndex,
-                onTap: context.read<MainAppState>().changeSelectedIndex,
+                ),
               ),
-            ),
+              VerticalDivider(),
+              Expanded(
+                flex: 2,
+                child: ContentQuestionPage(),
+              ),
+            ],
           ),
-          Expanded(
-            flex: 2,
-            child: AnswerContentPage(
-              questionId: mainAppState.getQuestionId,
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

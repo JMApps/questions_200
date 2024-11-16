@@ -9,7 +9,6 @@ class FabToTop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appColors = Theme.of(context).colorScheme;
     return Consumer<ScrollPageState>(
       builder: (context, scrollPageState, _) {
         return ValueListenableBuilder<double>(
