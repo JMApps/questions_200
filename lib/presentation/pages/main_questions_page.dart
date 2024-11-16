@@ -25,7 +25,7 @@ class MainQuestionsPage extends StatelessWidget {
           tooltip: AppStrings.lastHead,
           icon: Text(
             Provider.of<MainAppState>(context).getQuestionId.toString(),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18.0,
               fontFamily: AppStrings.fontGilroy,
             ),
@@ -34,8 +34,7 @@ class MainQuestionsPage extends StatelessWidget {
         actions: [
           IconButton.filledTonal(
             onPressed: () {
-              Provider.of<MainAppState>(context, listen: false)
-                  .randomQuestion();
+              Provider.of<MainAppState>(context, listen: false).randomQuestion();
             },
             tooltip: AppStrings.randomQuestions,
             icon: const Icon(Icons.repeat),
@@ -52,7 +51,7 @@ class MainQuestionsPage extends StatelessWidget {
           ),
         ],
       ),
-      body: MainQuestionsList(),
+      body: const MainQuestionsList(),
     );
   }
 }

@@ -17,7 +17,7 @@ class AboutUsColumn extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
+          const Text(
             AppStrings.ourApps,
             style: AppStyles.mainTextStyle17,
             textAlign: TextAlign.start,
@@ -30,27 +30,27 @@ class AboutUsColumn extends StatelessWidget {
             link: Platform.isAndroid ? AppStrings.linkGooglePlay : AppStrings.linkAppStore,
           ),
           const SizedBox(height: 8),
-          Text(
+          const Text(
             AppStrings.ourSocials,
             style: AppStyles.mainTextStyle17,
             textAlign: TextAlign.start,
           ),
           const SizedBox(height: 8),
-          AboutUsListTile(
+          const AboutUsListTile(
             title: AppStrings.telegram,
             subTitle: AppStrings.jmapps,
             iconName: 'telegram',
             link: AppStrings.linkTelegram,
           ),
           const SizedBox(height: 8),
-          AboutUsListTile(
+          const AboutUsListTile(
             title: AppStrings.instagram,
             subTitle: AppStrings.devMuslim,
             iconName: 'instagram',
             link: AppStrings.linkInstagram,
           ),
           const SizedBox(height: 8),
-          AboutUsListTile(
+          const AboutUsListTile(
             title: AppStrings.ummaLife,
             subTitle: AppStrings.jmapps,
             iconName: 'ummalife',

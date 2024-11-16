@@ -15,7 +15,7 @@ class TextSizesDropDown extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
-      title: Text(
+      title: const Text(
         AppStrings.textSize,
         style: AppStyles.mainTextStyle17,
       ),
@@ -37,7 +37,7 @@ class TextSizesDropDown extends StatelessWidget {
               ),
             ),
             onChanged: (newIndex) => appSettingsState.setTextSizeIndex = newIndex!,
-            underline: Container(),
+            underline: const SizedBox(),
           );
         },
       ),

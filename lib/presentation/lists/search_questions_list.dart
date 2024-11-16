@@ -37,27 +37,25 @@ class _SearchQuestionsListState extends State<SearchQuestionsList> {
     return FutureBuilder<List<QuestionEntity>>(
       future: _futureQuestions,
       builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return MainErrorTextData(errorText: snapshot.error.toString());
-        }
         if (snapshot.hasData) {
           _questions = snapshot.data!;
           _recentQuestions = widget.query.isEmpty ? _questions : _questions.where((element) => element.id.toString().contains(widget.query) || element.questionNumber.toLowerCase().contains(widget.query.toLowerCase()) || element.questionContent.toLowerCase().contains(widget.query.toLowerCase())).toList();
-          return _recentQuestions.isEmpty
-              ? const MainDescriptionText(descriptionText: AppStrings.searchQueryIsEmpty)
-              : ListView.builder(
-                  padding: AppStyles.paddingMiniWithoutBottom,
-                  itemCount: _recentQuestions.length,
-                  itemBuilder: (context, index) {
-                    final QuestionEntity questionModel = _recentQuestions[index];
-                    return QuestionItem(
-                      model: questionModel,
-                      index: index,
-                    );
-                  },
-                );
+          return _recentQuestions.isEmpty ? const MainDescriptionText(descriptionText: AppStrings.searchQueryIsEmpty) : ListView.builder(
+            padding: AppStyles.paddingMiniWithoutBottom,
+            itemCount: _recentQuestions.length,
+            itemBuilder: (context, index) {
+              final QuestionEntity questionModel = _recentQuestions[index];
+              return QuestionItem(
+                model: questionModel,
+                index: index,
+              );
+            },
+          );
         }
-        return Center(
+        if (snapshot.hasError) {
+          return MainErrorTextData(errorText: snapshot.error.toString());
+        }
+        return const Center(
           child: CircularProgressIndicator.adaptive(),
         );
       },

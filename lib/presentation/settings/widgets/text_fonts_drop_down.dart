@@ -15,7 +15,7 @@ class TextFontsDropDown extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
-      title: Text(
+      title: const Text(
         AppStrings.textFont,
         style: AppStyles.mainTextStyle17,
       ),
@@ -37,7 +37,7 @@ class TextFontsDropDown extends StatelessWidget {
               ),
             ),
             onChanged: (newIndex) => appSettingsState.setFontIndex = newIndex!,
-            underline: Container(),
+            underline: const SizedBox(),
           );
         },
       ),

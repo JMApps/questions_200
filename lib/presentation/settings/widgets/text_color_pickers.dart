@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 
 import '../../../core/strings/app_strings.dart';
 import '../../../core/styles/app_styles.dart';
@@ -19,7 +19,7 @@ class _TextColorPickersState extends State<TextColorPickers> {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
-      title: Text(
+      title: const Text(
         AppStrings.textColor,
         style: AppStyles.mainTextStyle17,
       ),
@@ -62,7 +62,7 @@ class _TextColorPickersState extends State<TextColorPickers> {
         alignment: Alignment.center,
         actionsPadding: AppStyles.mainPaddingMini,
         title: Text(
-          AppStrings.textColor,
+          isDark ? AppStrings.forDarkTheme : AppStrings.forLightTheme,
           style: AppStyles.mainTextStyle17Bold,
         ),
         content: Material(

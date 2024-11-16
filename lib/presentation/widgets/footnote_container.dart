@@ -14,7 +14,7 @@ class FootnoteContainer extends StatelessWidget {
     return SingleChildScrollView(
       child: SelectableRegion(
         focusNode: FocusNode(),
-        selectionControls: Platform.isIOS ? CupertinoTextSelectionControls() : MaterialTextSelectionControls(),
+        selectionControls: Platform.isAndroid ? MaterialTextSelectionControls() : CupertinoTextSelectionControls(),
         child: Html(
           data: content,
           style: {

@@ -49,7 +49,7 @@ class ScrollPageState extends ChangeNotifier {
 
   void _toTop() {
     if (_scrollController.hasClients) {
-      _scrollController.animateTo(-1, duration: Duration(milliseconds: 350), curve: Curves.easeIn);
+      _scrollController.animateTo(-1, duration: const Duration(milliseconds: 350), curve: Curves.easeIn);
     }
   }
 

@@ -58,8 +58,8 @@ class _TabletPageState extends State<TabletPage> {
                   ),
                 ),
               ),
-              VerticalDivider(),
-              Expanded(
+              const VerticalDivider(),
+              const Expanded(
                 flex: 2,
                 child: ContentQuestionPage(),
               ),

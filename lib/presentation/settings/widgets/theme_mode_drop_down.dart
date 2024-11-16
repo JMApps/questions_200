@@ -15,7 +15,7 @@ class ThemeModeDropDown extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
-      title: Text(
+      title: const Text(
         AppStrings.theme,
         style: AppStyles.mainTextStyle17,
       ),
@@ -37,7 +37,7 @@ class ThemeModeDropDown extends StatelessWidget {
               ),
             ),
             onChanged: (newIndex) => appSettingsState.setThemeIndex = newIndex!,
-            underline: Container(),
+            underline: const SizedBox(),
           );
         },
       ),

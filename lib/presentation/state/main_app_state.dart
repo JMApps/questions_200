@@ -19,7 +19,7 @@ class MainAppState extends ChangeNotifier {
 
   void randomQuestion() {
     int randomValue = Random().nextInt(201);
-    _itemScrollController.scrollTo(index: randomValue, duration: Duration(milliseconds: 500), alignment: 0.5);
+    _itemScrollController.scrollTo(index: randomValue, duration: const Duration(milliseconds: 500), alignment: 0.5);
   }
 
   int _selectedIndex = 0;

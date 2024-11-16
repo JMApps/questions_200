@@ -37,7 +37,7 @@ class AboutUsListTile extends StatelessWidget {
         width: 50,
         height: 50,
       ),
-      trailing: Icon(Icons.arrow_forward_ios_rounded),
+      trailing: const Icon(Icons.arrow_forward_ios_rounded),
     );
   }
 

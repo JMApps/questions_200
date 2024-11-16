@@ -14,7 +14,7 @@ class TextAlignsDropDown extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
-      title: Text(
+      title: const Text(
         AppStrings.alignText,
         style: AppStyles.mainTextStyle17,
       ),
@@ -38,9 +38,8 @@ class TextAlignsDropDown extends StatelessWidget {
                 ),
               ),
             ),
-            onChanged: (newIndex) =>
-                appSettingsState.setTextAlignIndex = newIndex!,
-            underline: Container(),
+            onChanged: (newIndex) => appSettingsState.setTextAlignIndex = newIndex!,
+            underline: const SizedBox(),
           );
         },
       ),

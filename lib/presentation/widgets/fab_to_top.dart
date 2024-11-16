@@ -24,7 +24,7 @@ class FabToTop extends StatelessWidget {
                 },
                 backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.5),
                 tooltip: AppStrings.toStart,
-                child: Icon(
+                child: const Icon(
                   Icons.arrow_upward_rounded,
                 ),
               ),

@@ -24,7 +24,6 @@ class QuestionItem extends StatelessWidget {
     final appColors = Theme.of(context).colorScheme;
     final itemOddColor = appColors.primary.withOpacity(0.025);
     final itemEvenColor = appColors.primary.withOpacity(0.075);
-    final bool isBookmark = Provider.of<QuestionsState>(context).questionIsFavorite(model.id);
     return Container(
       margin: AppStyles.paddingBottom,
       decoration: BoxDecoration(
@@ -59,27 +58,32 @@ class QuestionItem extends StatelessWidget {
           textAlign: TextAlign.start,
           fontColor: appColors.onSurface,
         ),
-        leading: IconButton.filledTonal(
-          onPressed: () {
-            Provider.of<QuestionsState>(context, listen: false).toggleQuestionFavorite(questionId: model.id);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                backgroundColor: appColors.secondaryContainer,
-                duration: const Duration(milliseconds: 350),
-                content: Text(
-                  isBookmark ? AppStrings.removed : AppStrings.added,
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    color: appColors.onSurface,
+        leading: Consumer<QuestionsState>(
+          builder: (context, questionsState, _) {
+            final bool isFavorite = questionsState.questionIsFavorite(model.id);
+            return IconButton.filledTonal(
+              onPressed: () {
+                questionsState.toggleQuestionFavorite(questionId: model.id);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: appColors.secondaryContainer,
+                    duration: const Duration(milliseconds: 350),
+                    content: Text(
+                      isFavorite ? AppStrings.removed : AppStrings.added,
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        color: appColors.onSurface,
+                      ),
+                    ),
                   ),
-                ),
+                );
+              },
+              icon: Icon(
+                isFavorite ? Icons.bookmark : Icons.bookmark_border,
+                color: appColors.secondary,
               ),
             );
           },
-          icon: Icon(
-            isBookmark ? Icons.bookmark : Icons.bookmark_border,
-            color: appColors.secondary,
-          ),
         ),
       ),
     );

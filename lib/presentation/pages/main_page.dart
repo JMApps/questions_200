@@ -4,9 +4,9 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../core/strings/app_strings.dart';
 import '../../core/styles/app_styles.dart';
+import '../settings/pages/app_settings_page.dart';
 import '../state/main_app_state.dart';
 import '../widgets/about_us_column.dart';
-import '../settings/pages/app_settings_page.dart';
 import 'favorite_questions_page.dart';
 import 'main_questions_page.dart';
 
@@ -46,41 +46,37 @@ class _MainPageState extends State<MainPage> {
               removeBottom: true,
               child: Padding(
                 padding: AppStyles.mainPaddingTopMini,
-                child: Consumer<MainAppState>(
-                  builder: (context, mainState, _) {
-                    return SalomonBottomBar(
-                        selectedItemColor: appColors.primary,
-                        unselectedItemColor: appColors.secondary,
-                        items: [
-                          SalomonBottomBarItem(
-                              icon: const Icon(Icons.question_answer_rounded),
-                              title: _itemText(title: AppStrings.questions),
-                          ),
-                          SalomonBottomBarItem(
-                              icon: const Icon(Icons.bookmark),
-                              title: _itemText(title: AppStrings.bookmarks),
-                          ),
-                          SalomonBottomBarItem(
-                              icon: const Icon(Icons.settings),
-                              title: _itemText(title: AppStrings.settings),
-                          ),
-                          SalomonBottomBarItem(
-                            icon: const Icon(Icons.account_box),
-                            title: _itemText(title: AppStrings.aboutUs),
-                          ),
-                        ],
-                        currentIndex: mainState.getSelectedIndex,
-                        onTap: (int index) {
-                          if (index == 3) {
-                            showModalBottomSheet(
-                              context: context,
-                              builder: (context) => AboutUsColumn(),
-                            );
-                          } else {
-                            mainState.setSelectedIndex = index;
-                          }
-                        },
-                    );
+                child: SalomonBottomBar(
+                  selectedItemColor: appColors.primary,
+                  unselectedItemColor: appColors.secondary,
+                  items: [
+                    SalomonBottomBarItem(
+                      icon: const Icon(Icons.question_answer_rounded),
+                      title: _itemText(title: AppStrings.questions),
+                    ),
+                    SalomonBottomBarItem(
+                      icon: const Icon(Icons.bookmark),
+                      title: _itemText(title: AppStrings.bookmarks),
+                    ),
+                    SalomonBottomBarItem(
+                      icon: const Icon(Icons.settings),
+                      title: _itemText(title: AppStrings.settings),
+                    ),
+                    SalomonBottomBarItem(
+                      icon: const Icon(Icons.account_box),
+                      title: _itemText(title: AppStrings.aboutUs),
+                    ),
+                  ],
+                  currentIndex: mainAppState.getSelectedIndex,
+                  onTap: (int index) {
+                    if (index == 3) {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) => const AboutUsColumn(),
+                      );
+                    } else {
+                      mainAppState.setSelectedIndex = index;
+                    }
                   },
                 ),
               ),

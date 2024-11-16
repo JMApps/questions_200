@@ -12,7 +12,7 @@ class FavoriteQuestionsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(AppStrings.bookmarks),
       ),
-      body: FavoriteQuestionsList(),
+      body: const FavoriteQuestionsList(),
     );
   }
 }

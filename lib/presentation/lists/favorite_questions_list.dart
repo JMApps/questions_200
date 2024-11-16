@@ -31,12 +31,6 @@ class _FavoriteQuestionsListState extends State<FavoriteQuestionsList> {
     return FutureBuilder<List<QuestionEntity>>(
       future: _futureFavoriteQuestions,
       builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return MainErrorTextData(errorText: snapshot.error.toString());
-        }
-        if (snapshot.hasData && snapshot.data!.isEmpty) {
-          return FavoriteIsEmpty(text: AppStrings.bookmarksIsEmpty);
-        }
         if (snapshot.hasData && snapshot.data!.isNotEmpty) {
           return ScrollablePositionedList.builder(
             padding: AppStyles.paddingMiniWithoutBottom,
@@ -50,7 +44,13 @@ class _FavoriteQuestionsListState extends State<FavoriteQuestionsList> {
             },
           );
         }
-        return Center(
+        if (snapshot.hasError) {
+          return MainErrorTextData(errorText: snapshot.error.toString());
+        }
+        if (snapshot.hasData && snapshot.data!.isEmpty) {
+          return const FavoriteIsEmpty(text: AppStrings.bookmarksIsEmpty);
+        }
+        return const Center(
           child: CircularProgressIndicator.adaptive(),
         );
       },

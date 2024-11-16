@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:questions_200/presentation/settings/widgets/text_color_pickers.dart';
-import 'package:questions_200/presentation/settings/widgets/theme_color_picker.dart';
-import 'package:questions_200/presentation/settings/widgets/theme_mode_drop_down.dart';
 
 import '../../../core/strings/app_strings.dart';
 import '../../../core/styles/app_styles.dart';
 import '../../state/app_settings_state.dart';
 import '../widgets/text_aligns_drop_down.dart';
+import '../widgets/text_color_pickers.dart';
 import '../widgets/text_fonts_drop_down.dart';
 import '../widgets/text_sizes_drop_down.dart';
+import '../widgets/theme_color_picker.dart';
+import '../widgets/theme_mode_drop_down.dart';
 
 class AppSettingsPage extends StatelessWidget {
   const AppSettingsPage({super.key});
@@ -24,7 +24,7 @@ class AppSettingsPage extends StatelessWidget {
         padding: AppStyles.mainPadding,
         child: Consumer<AppSettingsState>(
           builder: (context, settingsState, _) {
-            return Column(
+            return const Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 TextFontsDropDown(),
