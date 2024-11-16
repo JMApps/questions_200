@@ -11,7 +11,6 @@ class TextAlignsDropDown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appColors = Theme.of(context).colorScheme;
-    final itemSelectedTextStyle = TextStyle(fontSize: 17.0, fontFamily: AppStrings.fontGilroy, color: appColors.primary, fontWeight: FontWeight.bold);
     return ListTile(
       contentPadding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,

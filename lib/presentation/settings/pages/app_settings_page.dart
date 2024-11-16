@@ -16,7 +16,6 @@ class AppSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData appTheme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text(AppStrings.settings),
