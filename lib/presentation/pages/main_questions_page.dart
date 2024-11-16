@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:questions_200/core/strings/app_constraints.dart';
 
 import '../../core/routes/app_route_names.dart';
 import '../../core/strings/app_strings.dart';
