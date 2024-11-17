@@ -9,9 +9,7 @@ class AppStrings {
   static const String randomQuestions = 'Случайный вопрос';
   static const String question = 'Вопрос';
   static const String questions = 'Вопросы';
-  static const String answer = 'Ответ';
   static const String lastHead = 'Продолжить чтение';
-  static const String ofQuestion = 'вопроса';
   static const String errorInLoad = 'Ошибка при загрузке';
   static const String added = 'Добавлено';
   static const String removed = 'Удалено';
@@ -31,7 +29,8 @@ class AppStrings {
   static const String theme = 'Тема';
   static const String themeColor = 'Цвет темы';
   static const String selectThemeColor = 'Выбрать цвет темы';
-  static const String displayAlways = 'Дисплей всегда включён';
+  static const String displayAlwaysOn = 'Дисплей всегда включён';
+  static const String dailyNotification = 'Ежедневные уведомления';
 
   static const String fontRaleway = 'Raleway';
   static const String fontGilroy = 'Gilroy';

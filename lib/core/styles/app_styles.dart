@@ -21,14 +21,20 @@ class AppStyles {
 
   static const RoundedRectangleBorder mainShape = RoundedRectangleBorder(
     borderRadius: BorderRadius.all(
-      Radius.circular(25),
+      Radius.circular(20),
+    ),
+  );
+
+  static const RoundedRectangleBorder mainShapeMini = RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(
+      Radius.circular(10),
     ),
   );
 
   static const RoundedRectangleBorder mainShapeTop = RoundedRectangleBorder(
     borderRadius: BorderRadius.only(
-      topLeft: Radius.circular(25),
-      topRight: Radius.circular(25),
+      topLeft: Radius.circular(20),
+      topRight: Radius.circular(20),
     ),
   );
 
