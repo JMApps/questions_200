@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'core/strings/app_constraints.dart';
 import 'data/repositories/questions_data_repository.dart';
 import 'data/services/database_service.dart';
+import 'data/services/notification_service.dart';
 import 'domain/usecases/questions_use_case.dart';
 import 'presentation/pages/root_page.dart';
 import 'presentation/state/app_settings_state.dart';
@@ -16,6 +17,9 @@ void main() async {
 
   final DatabaseService databaseService = DatabaseService();
   await databaseService.initializeDatabase();
+
+  final NotificationService notificationService = NotificationService();
+  await notificationService.setupNotification();
 
   await Hive.initFlutter();
   await Hive.openBox(AppConstraints.keyAppSettingsBox);

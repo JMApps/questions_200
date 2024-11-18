@@ -17,6 +17,8 @@ class AppSettingsState extends ChangeNotifier {
     _appThemeColor = _contentSettingsBox.get(AppConstraints.keyAppThemeColor, defaultValue: Colors.green.value);
     _wakeLockState = _contentSettingsBox.get(AppConstraints.keyWakeLockState, defaultValue: false);
     _wakeLockState ? WakelockPlus.enable() : WakelockPlus.disable();
+    _dailyNotificationsState = _contentSettingsBox.get(AppConstraints.keyDailyNotifications, defaultValue: false);
+    _dailyNotificationsTime = _contentSettingsBox.get(AppConstraints.keyDailyNotificationsTime, defaultValue: DateTime(2024, 12, 31, 11, 00).toIso8601String());
   }
 
   late int _fontIndex;
@@ -25,7 +27,7 @@ class AppSettingsState extends ChangeNotifier {
 
   set setFontIndex(int index) {
     _fontIndex = index;
-    _contentSettingsBox.put(AppConstraints.keyFontIndex, index);
+    _contentSettingsBox.put(AppConstraints.keyFontIndex, _fontIndex);
     notifyListeners();
   }
 
@@ -35,7 +37,7 @@ class AppSettingsState extends ChangeNotifier {
 
   set setTextSizeIndex(int index) {
     _textSizeIndex = index;
-    _contentSettingsBox.put(AppConstraints.keyTextSizeIndex, index);
+    _contentSettingsBox.put(AppConstraints.keyTextSizeIndex, _textSizeIndex);
     notifyListeners();
   }
 
@@ -45,7 +47,7 @@ class AppSettingsState extends ChangeNotifier {
 
   set setTextAlignIndex(int index) {
     _textAlignIndex = index;
-    _contentSettingsBox.put(AppConstraints.keyTextAlignIndex, index);
+    _contentSettingsBox.put(AppConstraints.keyTextAlignIndex, _textAlignIndex);
     notifyListeners();
   }
 
@@ -55,7 +57,7 @@ class AppSettingsState extends ChangeNotifier {
 
   set setLightColor(int color) {
     _lightTextColor = color;
-    _contentSettingsBox.put(AppConstraints.keyLightTextColor, color);
+    _contentSettingsBox.put(AppConstraints.keyLightTextColor, _lightTextColor);
     notifyListeners();
   }
 
@@ -65,7 +67,7 @@ class AppSettingsState extends ChangeNotifier {
 
   set setDarkColor(int color) {
     _darkTextColor = color;
-    _contentSettingsBox.put(AppConstraints.keyDarkTextColor, color);
+    _contentSettingsBox.put(AppConstraints.keyDarkTextColor, _darkTextColor);
     notifyListeners();
   }
 
@@ -75,7 +77,7 @@ class AppSettingsState extends ChangeNotifier {
 
   set setThemeIndex(int index) {
     _appThemeIndex = index;
-    _contentSettingsBox.put(AppConstraints.keyAppThemeIndex, index);
+    _contentSettingsBox.put(AppConstraints.keyAppThemeIndex, _appThemeIndex);
     notifyListeners();
   }
 
@@ -102,7 +104,7 @@ class AppSettingsState extends ChangeNotifier {
 
   set setAppThemeColor(int color) {
     _appThemeColor = color;
-    _contentSettingsBox.put(AppConstraints.keyAppThemeColor, color);
+    _contentSettingsBox.put(AppConstraints.keyAppThemeColor, _appThemeColor);
     notifyListeners();
   }
 
@@ -113,7 +115,27 @@ class AppSettingsState extends ChangeNotifier {
   set changeWakeLock(bool state) {
     _wakeLockState = state;
     _wakeLockState ? WakelockPlus.enable() : WakelockPlus.disable();
-    _contentSettingsBox.put(AppConstraints.keyWakeLockState, state);
+    _contentSettingsBox.put(AppConstraints.keyWakeLockState, _wakeLockState);
+    notifyListeners();
+  }
+
+  late bool _dailyNotificationsState;
+
+  bool get getDailyNotificationsState => _dailyNotificationsState;
+
+  set setDailyNotificationsState(bool state) {
+    _dailyNotificationsState = state;
+    _contentSettingsBox.put(AppConstraints.keyDailyNotifications, _dailyNotificationsState);
+    notifyListeners();
+  }
+
+  late String _dailyNotificationsTime;
+
+  DateTime get getDailyNotificationsTime => DateTime.parse(_dailyNotificationsTime);
+
+  set setDailyNotificationsTime(DateTime dateTime) {
+    _dailyNotificationsTime = dateTime.toIso8601String();
+    _contentSettingsBox.put(AppConstraints.keyDailyNotificationsTime, _dailyNotificationsTime);
     notifyListeners();
   }
 }

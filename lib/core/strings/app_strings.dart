@@ -18,6 +18,7 @@ class AppStrings {
   static const String toStart = 'В начало';
   static const String aboutUs = 'О нас';
   static const String nextQuestion = 'Следующий вопрос';
+  static const String notificationBody = 'Ответ на какой вопрос ты выберешь сегодня?';
 
   // Settings
   static const String textFont = 'Шрифт';

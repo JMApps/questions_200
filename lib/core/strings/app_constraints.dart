@@ -12,6 +12,8 @@ class AppConstraints {
   static const String keyAppThemeIndex = 'key_app_theme_index';
   static const String keyAppThemeColor = 'key_app_theme_color';
   static const String keyWakeLockState = 'key_wake_lock';
+  static const String keyDailyNotifications = 'key_daily_notifications';
+  static const String keyDailyNotificationsTime = 'key_daily_notifications_time';
 
   static const String keyLastQuestion = 'key_lesson_last_head';
   static const String keyContentScrollProgress = 'key_content_scroll_progress_';
