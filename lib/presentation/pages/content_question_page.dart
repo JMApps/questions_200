@@ -47,7 +47,8 @@ class _ContentQuestionPageState extends State<ContentQuestionPage> {
       providers: [
         ChangeNotifierProvider(
           create: (_) => ScrollPageState(
-              '${AppConstraints.keyContentScrollProgress}$_questionId'),
+              '${AppConstraints.keyContentScrollProgress}$_questionId',
+          ),
         ),
       ],
       child: Scaffold(
@@ -83,7 +84,10 @@ class _ContentQuestionPageState extends State<ContentQuestionPage> {
                     ].join('\n\n');
                     return IconButton.filledTonal(
                       onPressed: () {
-                        Share.share(_parseHtmlText(contentShare));
+                        Share.share(
+                          _parseHtmlText(contentShare),
+                          sharePositionOrigin: const Rect.fromLTRB(0, 0, 100, 100),
+                        );
                       },
                       icon: const Icon(Icons.ios_share_outlined),
                     );

@@ -46,6 +46,7 @@ class _DailyNotificationsListTileState extends State<DailyNotificationsListTile>
               if (notificationTime != null) {
                 appSettingsState.setDailyNotificationsTime = DateTime(2024, 12, 31, notificationTime.hour, notificationTime.minute);
               }
+              _notificationService.timeNotifications(id: NotificationService.dailyNotificationId, title: AppStrings.appName, body: AppStrings.notificationBody, dateTime: appSettingsState.getDailyNotificationsTime);
             } : null,
             icon: Icon(
               Icons.access_time_rounded,
