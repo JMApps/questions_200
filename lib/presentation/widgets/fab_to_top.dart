@@ -19,6 +19,7 @@ class FabToTop extends StatelessWidget {
               duration: const Duration(milliseconds: 150),
               child: FloatingActionButton(
                 elevation: 0,
+                heroTag: scrollPageState.hashCode,
                 onPressed: () {
                   scrollPageState.getToTop;
                 },

@@ -38,19 +38,10 @@ class ScrollPageState extends ChangeNotifier {
     });
   }
 
-  void setButtonVisibility(double opacity) {
-    if (_buttonOpacityNotifier.value > 0) {
-      _buttonOpacityNotifier.value = opacity;
-    }
-  }
-
-
   void get getToTop => _toTop();
 
   void _toTop() {
-    if (_scrollController.hasClients) {
-      _scrollController.animateTo(-1, duration: const Duration(milliseconds: 350), curve: Curves.easeIn);
-    }
+    _scrollController.animateTo(0, duration: const Duration(milliseconds: 360), curve: Curves.easeIn);
   }
 
   void _onScroll() {
@@ -60,10 +51,7 @@ class ScrollPageState extends ChangeNotifier {
 
       if (currentPixels <= 0) {
         _buttonOpacityNotifier.value = 0.0;
-      }
-
-      if (maxScroll > 0) {
-        _scrollProgressNotifier.value = currentPixels / maxScroll;
+      } else if (maxScroll > 0 && (currentPixels - _previousScrollPosition).abs() > 0) {
         if (currentPixels < _previousScrollPosition) {
           _buttonOpacityNotifier.value = 1.0;
         } else {
