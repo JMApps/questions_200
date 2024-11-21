@@ -10,27 +10,20 @@ import '../state/questions_state.dart';
 import '../widgets/favorite_is_empty.dart';
 import '../widgets/main_error_text_data.dart';
 
-class FavoriteQuestionsList extends StatefulWidget {
+class FavoriteQuestionsList extends StatelessWidget {
   const FavoriteQuestionsList({super.key});
-
-  @override
-  State<FavoriteQuestionsList> createState() => _FavoriteQuestionsListState();
-}
-
-class _FavoriteQuestionsListState extends State<FavoriteQuestionsList> {
-  late final Future<List<QuestionEntity>> _futureFavoriteQuestions;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _futureFavoriteQuestions = Provider.of<QuestionsState>(context, listen: false).getFavoriteQuestions(favoriteQuestionsIds: Provider.of<QuestionsState>(context).getFavoriteQuestionIds);
-  }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<QuestionEntity>>(
-      future: _futureFavoriteQuestions,
+      future: Provider.of<QuestionsState>(context, listen: false).getFavoriteQuestions(favoriteQuestionsIds: Provider.of<QuestionsState>(context).getFavoriteQuestionIds),
       builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return MainErrorTextData(errorText: snapshot.error.toString());
+        }
+        if (snapshot.hasData && snapshot.data!.isEmpty) {
+          return const FavoriteIsEmpty(text: AppStrings.bookmarksIsEmpty);
+        }
         if (snapshot.hasData && snapshot.data!.isNotEmpty) {
           return ScrollablePositionedList.builder(
             padding: AppStyles.paddingMiniWithoutBottom,
@@ -43,12 +36,6 @@ class _FavoriteQuestionsListState extends State<FavoriteQuestionsList> {
               );
             },
           );
-        }
-        if (snapshot.hasError) {
-          return MainErrorTextData(errorText: snapshot.error.toString());
-        }
-        if (snapshot.hasData && snapshot.data!.isEmpty) {
-          return const FavoriteIsEmpty(text: AppStrings.bookmarksIsEmpty);
         }
         return const Center(
           child: CircularProgressIndicator.adaptive(),
