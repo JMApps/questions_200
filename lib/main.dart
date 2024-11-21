@@ -18,8 +18,7 @@ void main() async {
   final DatabaseService databaseService = DatabaseService();
   await databaseService.initializeDatabase();
 
-  final NotificationService notificationService = NotificationService();
-  await notificationService.setupNotification();
+  await NotificationService().setupNotification();
 
   await Hive.initFlutter();
   await Hive.openBox(AppConstraints.keyAppSettingsBox);

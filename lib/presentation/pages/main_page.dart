@@ -31,7 +31,7 @@ class _MainPageState extends State<MainPage> {
       builder: (context, mainAppState, _) {
         return Scaffold(
           body: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 250),
+            duration: const Duration(milliseconds: 350),
             switchInCurve: Curves.easeInToLinear,
             switchOutCurve: Curves.easeInToLinear,
             child: _mainPages[mainAppState.getSelectedIndex],

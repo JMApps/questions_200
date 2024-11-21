@@ -10,12 +10,17 @@ class QuestionsState extends ChangeNotifier {
   final QuestionsUseCase _questionsUseCase;
   final _favoritesBox = Hive.box(AppConstraints.keyFavoritesList);
 
+  late final Future<List<QuestionEntity>> _futureQuestions;
+
   QuestionsState(this._questionsUseCase) {
     _favoriteQuestionIds = _favoritesBox.get(AppConstraints.keyFavoritesList, defaultValue: <int>[]);
+    fetchAllQuestions();
   }
 
-  Future<List<QuestionEntity>> getAllQuestions() async {
-    return await _questionsUseCase.getAllQuestions();
+  Future<List<QuestionEntity>> get getFutureQuestions => _futureQuestions;
+
+  Future<List<QuestionEntity>> fetchAllQuestions() async {
+    return _futureQuestions = _questionsUseCase.getAllQuestions();
   }
 
   Future<List<QuestionEntity>> getFavoriteQuestions({required List<int> favoriteQuestionsIds}) async {

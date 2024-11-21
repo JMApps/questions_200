@@ -22,7 +22,7 @@ class _MainQuestionsListState extends State<MainQuestionsList> {
   @override
   void initState() {
     super.initState();
-    _futureQuestions = Provider.of<QuestionsState>(context, listen: false).getAllQuestions();
+    _futureQuestions = Provider.of<QuestionsState>(context, listen: false).getFutureQuestions;
   }
 
   @override

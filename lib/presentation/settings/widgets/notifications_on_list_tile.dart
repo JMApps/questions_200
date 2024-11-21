@@ -40,13 +40,18 @@ class _DailyNotificationsListTileState extends State<DailyNotificationsListTile>
             padding: EdgeInsets.zero,
             onPressed: appSettingsState.getDailyNotificationsState ? () async {
               final notificationTime = await showTimePicker(
+                cancelText: AppStrings.close,
+                confirmText: AppStrings.select,
+                helpText: AppStrings.selectTime,
                 context: context,
                 initialTime: TimeOfDay(hour: appSettingsState.getDailyNotificationsTime.hour, minute: appSettingsState.getDailyNotificationsTime.minute),
               );
               if (notificationTime != null) {
                 appSettingsState.setDailyNotificationsTime = DateTime(2024, 12, 31, notificationTime.hour, notificationTime.minute);
+                if (appSettingsState.getDailyNotificationsState) {
+                  _notificationService.timeNotifications(id: NotificationService.dailyNotificationId, title: AppStrings.appName, body: AppStrings.notificationBody, dateTime: appSettingsState.getDailyNotificationsTime);
+                }
               }
-              _notificationService.timeNotifications(id: NotificationService.dailyNotificationId, title: AppStrings.appName, body: AppStrings.notificationBody, dateTime: appSettingsState.getDailyNotificationsTime);
             } : null,
             icon: Icon(
               Icons.access_time_rounded,

@@ -9,8 +9,8 @@ class AppSettingsState extends ChangeNotifier {
 
   AppSettingsState() {
     _fontIndex = _contentSettingsBox.get(AppConstraints.keyFontIndex, defaultValue: 0);
-    _textAlignIndex = _contentSettingsBox.get(AppConstraints.keyTextAlignIndex, defaultValue: 0);
     _textSizeIndex = _contentSettingsBox.get(AppConstraints.keyTextSizeIndex, defaultValue: 1);
+    _textAlignIndex = _contentSettingsBox.get(AppConstraints.keyTextAlignIndex, defaultValue: 0);
     _lightTextColor = _contentSettingsBox.get(AppConstraints.keyLightTextColor, defaultValue: Colors.blueGrey.shade900.value);
     _darkTextColor = _contentSettingsBox.get(AppConstraints.keyDarkTextColor, defaultValue: Colors.blueGrey.shade50.value);
     _appThemeIndex = _contentSettingsBox.get(AppConstraints.keyAppThemeIndex, defaultValue: 2);

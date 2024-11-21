@@ -22,14 +22,14 @@ class SearchQuestionsList extends StatefulWidget {
 }
 
 class _SearchQuestionsListState extends State<SearchQuestionsList> {
-  late Future<List<QuestionEntity>> _futureQuestions;
+  late final Future<List<QuestionEntity>> _futureQuestions;
   List<QuestionEntity> _questions = [];
   List<QuestionEntity> _recentQuestions = [];
 
   @override
   void initState() {
     super.initState();
-    _futureQuestions = Provider.of<QuestionsState>(context, listen: false).getAllQuestions();
+    _futureQuestions = Provider.of<QuestionsState>(context, listen: false).getFutureQuestions;
   }
 
   @override

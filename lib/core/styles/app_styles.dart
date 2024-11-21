@@ -9,14 +9,9 @@ class AppStyles {
   static const EdgeInsets paddingWithoutTop = EdgeInsets.only(left: 16, bottom: 16, right: 16);
 
   static const EdgeInsets paddingHorizontal = EdgeInsets.symmetric(horizontal: 16);
-  static const EdgeInsets paddingHorizontalMini = EdgeInsets.symmetric(horizontal: 8);
 
   static const EdgeInsets paddingBottom = EdgeInsets.only(bottom: 16);
-  static const EdgeInsets paddingBottomMini = EdgeInsets.only(bottom: 8);
-
-  static const EdgeInsets paddingRight = EdgeInsets.only(right: 16);
-  static const EdgeInsets paddingRightMini = EdgeInsets.only(right: 8);
-
+  
   static const EdgeInsets mainPaddingTopMini = EdgeInsets.only(left: 16, top: 8, right: 16, bottom: 16);
 
   static const RoundedRectangleBorder mainShape = RoundedRectangleBorder(

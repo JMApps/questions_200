@@ -33,7 +33,7 @@ class _ThemeColorPickerState extends State<ThemeColorPicker> {
                   alignment: Alignment.center,
                   actionsPadding: AppStyles.mainPaddingMini,
                   title: const Text(
-                    AppStrings.themeColor,
+                    AppStrings.selectThemeColor,
                     style: AppStyles.mainTextStyle17Bold,
                   ),
                   content: Material(

@@ -1,6 +1,5 @@
 class AppStrings {
   static const String appName = '200 вопросов';
-  static const String heads = 'Главы';
   static const String bookmarks = 'Избранное';
   static const String settings = 'Настройки';
   static const String bookmarksIsEmpty = 'Список избранного пуст';
@@ -15,6 +14,8 @@ class AppStrings {
   static const String removed = 'Удалено';
   static const String share = 'Поделиться';
   static const String close = 'Закрыть';
+  static const String select = 'Выбрать';
+  static const String selectTime = 'Выберите время';
   static const String toStart = 'В начало';
   static const String aboutUs = 'О нас';
   static const String nextQuestion = 'Следующий вопрос';

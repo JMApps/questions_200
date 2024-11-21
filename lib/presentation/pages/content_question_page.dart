@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:html/parser.dart';
+import 'package:html/parser.dart' as html_parser;
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -80,12 +80,13 @@ class _ContentQuestionPageState extends State<ContentQuestionPage> {
                     final String contentShare = [
                       questionModel.questionNumber,
                       questionModel.questionContent,
-                      questionModel.answerContent,
+                      questionModel.answerContent
                     ].join('\n\n');
                     return IconButton.filledTonal(
-                      onPressed: () {
+                      onPressed: () async {
+                        final String footnotes = await _footnotes();
                         Share.share(
-                          _parseHtmlText(contentShare),
+                          _parseHtmlText(footnotes.isNotEmpty ? '$contentShare\n\n$footnotes' : contentShare),
                           sharePositionOrigin: const Rect.fromLTRB(0, 0, 100, 100),
                         );
                       },
@@ -113,7 +114,7 @@ class _ContentQuestionPageState extends State<ContentQuestionPage> {
             ),
           ),
         ),
-        body: FutureBuilder(
+        body: FutureBuilder<QuestionEntity>(
           future: _futureQuestion,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
@@ -143,7 +144,7 @@ class _ContentQuestionPageState extends State<ContentQuestionPage> {
                             padding: AppStyles.mainPadding,
                             decoration: BoxDecoration(
                               borderRadius: AppStyles.mainBorderRadius,
-                              color: appColors.primary.withOpacity(0.15),
+                              color: appColors.primary.withOpacity(0.075),
                             ),
                             child: MainHtmlData(
                               htmlData: "<b>${questionModel.questionContent}</b>",
@@ -197,8 +198,12 @@ class _ContentQuestionPageState extends State<ContentQuestionPage> {
   }
 
   String _parseHtmlText(String htmlText) {
-    final documentText = parse(htmlText);
-    final String parsedString = parse(documentText.body!.text).documentElement!.text;
+    final documentText = html_parser.parse(htmlText);
+    final String parsedString = html_parser.parse(documentText.body!.text).documentElement!.text;
     return parsedString;
+  }
+
+  Future<String> _footnotes() async {
+    return await Provider.of<QuestionsState>(context, listen: false).getFootnotesByQuestionId(questionId: Provider.of<MainAppState>(context, listen: false).getQuestionId);
   }
 }

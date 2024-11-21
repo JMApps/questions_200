@@ -16,8 +16,8 @@ class MainQuestionsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(AppStrings.appName),
         leading: IconButton.filledTonal(
-          onPressed: () {
-            Navigator.pushNamed(
+          onPressed: () async {
+            await Navigator.pushNamed(
               context,
               AppRouteNames.questionContentPage,
             );

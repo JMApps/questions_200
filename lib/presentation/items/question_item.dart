@@ -45,18 +45,18 @@ class QuestionItem extends StatelessWidget {
         title: Text(
           model.questionNumber,
           style: TextStyle(
+            fontSize: 18.0,
             color: appColors.secondary,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
             fontFamily: AppStrings.fontGilroy,
+            fontWeight: FontWeight.bold,
           ),
         ),
         subtitle: MainHtmlData(
           htmlData: model.questionContent,
-          font: AppStrings.fontRaleway,
           fontSize: 18.0,
-          textAlign: TextAlign.start,
           fontColor: appColors.onSurface,
+          font: AppStrings.fontRaleway,
+          textAlign: TextAlign.start,
         ),
         leading: Consumer<QuestionsState>(
           builder: (context, questionsState, _) {

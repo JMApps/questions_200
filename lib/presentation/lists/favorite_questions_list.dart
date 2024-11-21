@@ -18,7 +18,7 @@ class FavoriteQuestionsList extends StatefulWidget {
 }
 
 class _FavoriteQuestionsListState extends State<FavoriteQuestionsList> {
-  late Future<List<QuestionEntity>> _futureFavoriteQuestions;
+  late final Future<List<QuestionEntity>> _futureFavoriteQuestions;
 
   @override
   void didChangeDependencies() {

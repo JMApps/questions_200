@@ -48,9 +48,9 @@ class QuestionsDataRepository implements QuestionsRepository {
   @override
   Future<String> getFootnotesByQuestionId({required int questionId}) async {
     final Database database = await _databaseService.db;
-    final List<Map<String, Object?>> resources = await database.query(DbValues.dbFootnotesTableName, where: '${DbValues.dbFootnoteNumber} = ?', whereArgs: [questionId]);
+    final List<Map<String, Object?>> resources = await database.query(DbValues.dbFootnotesTableName, where: '${DbValues.dbContentNumber} = ?', whereArgs: [questionId]);
     final List<FootnoteEntity> footnotesByQuestionId = resources.isNotEmpty ? resources.map((e) => FootnoteEntity.fromModel(FootnoteModel.fromMap(e))).toList() : [];
-    final String serializedFootnotes = footnotesByQuestionId.asMap().entries.map((entry) => '[${entry.value.id}] - ${entry.value.footnoteContent}').join('\n\n');
+    final String serializedFootnotes = footnotesByQuestionId.asMap().entries.map((entry) => '[${entry.value.id}] – ${entry.value.footnoteContent}').join('\n\n');
     return serializedFootnotes;
   }
 }
