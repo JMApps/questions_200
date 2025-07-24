@@ -27,6 +27,7 @@ class ContentQuestionPage extends StatefulWidget {
 }
 
 class _ContentQuestionPageState extends State<ContentQuestionPage> {
+  final ScrollController _scrollController = ScrollController();
   late final int _questionId;
   late final Future<QuestionEntity> _futureQuestion;
   bool _isScrollInitialized = false;
@@ -47,6 +48,7 @@ class _ContentQuestionPageState extends State<ContentQuestionPage> {
       providers: [
         ChangeNotifierProvider(
           create: (_) => ScrollPageState(
+            _scrollController,
               '${AppConstraints.keyContentScrollProgress}$_questionId',
           ),
         ),
@@ -144,7 +146,7 @@ class _ContentQuestionPageState extends State<ContentQuestionPage> {
                             padding: AppStyles.mainPadding,
                             decoration: BoxDecoration(
                               borderRadius: AppStyles.mainBorderRadius,
-                              color: appColors.primary.withOpacity(0.075),
+                              color: appColors.primary.withAlpha(25),
                             ),
                             child: MainHtmlData(
                               htmlData: "<b>${questionModel.questionContent}</b>",

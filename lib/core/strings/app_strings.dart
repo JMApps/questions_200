@@ -47,7 +47,7 @@ class AppStrings {
   static const String instagram = 'Instagram';
   static const String jmapps = '@jmapps';
   static const String devMuslim = '@dev_muslim';
-  static const String linkGooglePlay = 'https://play.google.com/store/apps/dev?id=8649252597553656018';
+  static const String linkGooglePlay = 'https://play.google.com/store/apps/dev?id=8618604926669167137';
   static const String linkAppStore = 'https://apps.apple.com/ru/developer/imanil-binyaminov/id1564920953';
   static const String versionAndroid = 'Версия Android:';
   static const String versionIOS = 'Версия iOS:';

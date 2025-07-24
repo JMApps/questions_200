@@ -10,7 +10,7 @@ class ScrollPageState extends ChangeNotifier {
 
   final String _saveProgressKey;
 
-  final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController;
 
   ScrollController get getScrollController => _scrollController;
 
@@ -22,7 +22,7 @@ class ScrollPageState extends ChangeNotifier {
 
   ValueNotifier<double> get getButtonOpacity => _buttonOpacityNotifier;
 
-  ScrollPageState(this._saveProgressKey) {
+  ScrollPageState(this._scrollController, this._saveProgressKey) {
     _scrollProgressNotifier.value = _mainScrollStates.get(_saveProgressKey, defaultValue: 0.0);
     _scrollController.addListener(_onScroll);
     _scrollTo();
@@ -41,17 +41,17 @@ class ScrollPageState extends ChangeNotifier {
   void get getToTop => _toTop();
 
   void _toTop() {
-    _scrollController.animateTo(0, duration: const Duration(milliseconds: 360), curve: Curves.easeIn);
+    _scrollController.animateTo(0, duration: const Duration(milliseconds: 360), curve: Curves.easeIn).then((_) {
+      _buttonOpacityNotifier.value = 0.0;
+    });
   }
 
   void _onScroll() {
     if (_scrollController.hasClients) {
-      final double currentPixels = _scrollController.position.pixels;
-      final double maxScroll = _scrollController.position.maxScrollExtent;
-
-      if (currentPixels <= 0) {
-        _buttonOpacityNotifier.value = 0.0;
-      } else if (maxScroll > 0 && (currentPixels - _previousScrollPosition).abs() > 0) {
+      final currentPixels = _scrollController.position.pixels;
+      final maxScroll = _scrollController.position.maxScrollExtent;
+      if (maxScroll > 0) {
+        _scrollProgressNotifier.value = currentPixels / maxScroll;
         if (currentPixels < _previousScrollPosition) {
           _buttonOpacityNotifier.value = 1.0;
         } else {
