@@ -30,56 +30,56 @@ class _MainPageState extends State<MainPage> {
     return Consumer<MainAppState>(
       builder: (context, mainAppState, _) {
         return Scaffold(
+          resizeToAvoidBottomInset: true,
           body: AnimatedSwitcher(
             duration: const Duration(milliseconds: 350),
             switchInCurve: Curves.easeInToLinear,
             switchOutCurve: Curves.easeInToLinear,
             child: _mainPages[mainAppState.getSelectedIndex],
           ),
-          bottomNavigationBar: Card(
-            margin: EdgeInsets.zero,
-            elevation: 0,
-            shape: AppStyles.mainShapeTop,
-            child: MediaQuery.removePadding(
-              context: context,
-              removeTop: true,
-              removeBottom: true,
-              child: Padding(
-                padding: AppStyles.mainPaddingTopMini,
-                child: SalomonBottomBar(
-                  selectedItemColor: appColors.primary,
-                  unselectedItemColor: appColors.secondary,
-                  items: [
-                    SalomonBottomBarItem(
-                      icon: const Icon(Icons.question_answer_rounded),
-                      title: _itemText(title: AppStrings.questions),
-                    ),
-                    SalomonBottomBarItem(
-                      icon: const Icon(Icons.bookmark),
-                      title: _itemText(title: AppStrings.bookmarks),
-                    ),
-                    SalomonBottomBarItem(
-                      icon: const Icon(Icons.settings),
-                      title: _itemText(title: AppStrings.settings),
-                    ),
-                    SalomonBottomBarItem(
-                      icon: const Icon(Icons.account_box),
-                      title: _itemText(title: AppStrings.aboutUs),
-                    ),
-                  ],
-                  currentIndex: mainAppState.getSelectedIndex,
-                  onTap: (int index) {
-                    if (index == 3) {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (context) => const AboutUsColumn(),
-                      );
-                    } else {
-                      mainAppState.setSelectedIndex = index;
-                    }
-                  },
+          bottomNavigationBar: Padding(
+            padding: AppStyles.mainPaddingMini,
+            child: SalomonBottomBar(
+              selectedItemColor: appColors.primary,
+              unselectedItemColor: appColors.secondary,
+              items: [
+                SalomonBottomBarItem(
+                  icon: const Icon(Icons.question_answer_rounded),
+                  title: _itemText(title: AppStrings.questions),
                 ),
-              ),
+                SalomonBottomBarItem(
+                  icon: const Icon(Icons.bookmark),
+                  title: _itemText(title: AppStrings.bookmarks),
+                ),
+                SalomonBottomBarItem(
+                  icon: const Icon(Icons.settings),
+                  title: _itemText(title: AppStrings.settings),
+                ),
+                SalomonBottomBarItem(
+                  icon: const Icon(Icons.account_box),
+                  title: _itemText(title: AppStrings.aboutUs),
+                ),
+              ],
+              currentIndex: mainAppState.getSelectedIndex,
+              onTap: (int index) {
+                if (index == 3) {
+                  showModalBottomSheet(
+                    context: context,
+                    useSafeArea: true,
+                    isScrollControlled: true,
+                    builder: (context) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom + MediaQuery.of(context).padding.bottom,
+                        ),
+                        child: const AboutUsColumn(),
+                      );
+                    },
+                  );
+                } else {
+                  mainAppState.setSelectedIndex = index;
+                }
+              },
             ),
           ),
         );
